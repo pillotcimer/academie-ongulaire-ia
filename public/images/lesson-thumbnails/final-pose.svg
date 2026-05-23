@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Final nail pose thumbnail</title>
+  <desc id="desc">Premium thumbnail placeholder for final pose lesson.</desc>
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f7e8c8"/><stop offset="0.52" stop-color="#f7dce5"/><stop offset="1" stop-color="#7a9a87"/></linearGradient></defs>
+  <rect width="960" height="540" fill="url(#g)"/>
+  <path d="M220 318c54-100 130-122 190-62 58-68 146-62 204 0 54-38 110-24 154 62" fill="none" stroke="#ffffff" stroke-width="72" stroke-linecap="round"/>
+  <path d="M258 306c48-56 94-64 140-20M446 286c50-42 94-42 138 0M628 300c42-32 74-30 110 4" fill="none" stroke="#242124" stroke-width="14" stroke-linecap="round"/>
+  <text x="180" y="430" fill="#242124" font-family="Arial, sans-serif" font-size="50" font-weight="700">Pose finale</text>
+</svg>

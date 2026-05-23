@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, BadgeCheck, CheckCircle2, ClipboardCheck, Target, TriangleAlert } from "lucide-react";
 import type { CourseLesson } from "@/data/content";
+import { getLessonMedia } from "@/data/mediaLibrary";
 import { InteractiveChecklist } from "@/components/InteractiveChecklist";
 import { LessonCoachBlock } from "@/components/LessonCoachBlock";
 import { VideoLessonBlock } from "@/components/VideoLessonBlock";
@@ -18,6 +19,7 @@ type TrainingLessonCardProps = {
 export function TrainingLessonCard({ lesson, allLessonIds, nextLessonId }: TrainingLessonCardProps) {
   const { isCompleted, completeLesson } = useLessonProgress(allLessonIds);
   const completed = isCompleted(lesson.id);
+  const media = getLessonMedia(lesson.id);
 
   return (
     <article id={`lesson-${lesson.id}`} className="scroll-mt-6 rounded-lg border border-rose-100 bg-white p-4 shadow-tight sm:p-5">
@@ -39,7 +41,7 @@ export function TrainingLessonCard({ lesson, allLessonIds, nextLessonId }: Train
       </div>
 
       <div className="mt-5">
-        <VideoLessonBlock title={lesson.videoTitle} duration={lesson.videoDuration} videoUrl={lesson.videoUrl} />
+        <VideoLessonBlock title={lesson.videoTitle} duration={lesson.videoDuration} videoUrl={lesson.videoUrl} media={media} />
       </div>
 
       <div className="mt-5 rounded-lg bg-petal p-4">

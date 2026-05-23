@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Nail diagnostic thumbnail</title>
+  <desc id="desc">Premium thumbnail placeholder for diagnostic lesson.</desc>
+  <rect width="960" height="540" fill="#fff5f7"/>
+  <rect x="156" y="118" width="648" height="304" rx="34" fill="#ffffff"/>
+  <circle cx="306" cy="268" r="72" fill="#f7dce5"/>
+  <path d="M270 268h72M306 232v72" stroke="#a94c67" stroke-width="14" stroke-linecap="round"/>
+  <path d="M456 206h230M456 270h190M456 334h140" stroke="#242124" stroke-width="20" stroke-linecap="round"/>
+  <text x="156" y="472" fill="#242124" font-family="Arial, sans-serif" font-size="48" font-weight="700">Diagnostic</text>
+</svg>

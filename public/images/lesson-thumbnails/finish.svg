@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Nail finish thumbnail</title>
+  <desc id="desc">Premium thumbnail placeholder for finishing lesson.</desc>
+  <rect width="960" height="540" fill="#242124"/>
+  <circle cx="274" cy="198" r="72" fill="#f7dce5"/>
+  <circle cx="448" cy="258" r="88" fill="#a94c67"/>
+  <circle cx="662" cy="202" r="66" fill="#f7e8c8"/>
+  <path d="M190 354h580" stroke="#ffffff" stroke-width="16" stroke-linecap="round" opacity="0.85"/>
+  <path d="M646 124l18 46 46 18-46 18-18 46-18-46-46-18 46-18z" fill="#ffffff"/>
+  <text x="190" y="432" fill="#ffffff" font-family="Arial, sans-serif" font-size="50" font-weight="700">Finition</text>
+</svg>
