@@ -1,17 +1,27 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { AlertCircle, Camera, CheckCircle2, ClipboardCheck, Loader2, Upload, XCircle } from "lucide-react";
 import { analysisByExercise, exerciseOptions } from "@/data/content";
+import type { CoachAnalysis } from "@/lib/coachAnalysis";
+import { requestPhotoAnalysis } from "@/components/photoAnalysisClient";
 
 export function CoachAnalyzer() {
   const [selectedExercise, setSelectedExercise] = useState(exerciseOptions[0]);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [hasResult, setHasResult] = useState(false);
-  const [message, setMessage] = useState("Ajoute une photo pour lancer une analyse de démonstration.");
+  const [analysis, setAnalysis] = useState<CoachAnalysis | null>(null);
+  const [analysisMode, setAnalysisMode] = useState<"ai" | "demo">("demo");
+  const [message, setMessage] = useState("Ajoute une photo pour lancer une analyse.");
 
-  const analysis = useMemo(() => analysisByExercise[selectedExercise], [selectedExercise]);
+  useEffect(() => {
+    return () => {
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -19,28 +29,47 @@ export function CoachAnalyzer() {
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
-    setPreview(imageUrl);
-    setHasResult(false);
-    setMessage("Photo ajoutée. Tu peux lancer l'analyse en mode démo.");
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
+
+    setPhotoFile(file);
+    setPreview(URL.createObjectURL(file));
+    setAnalysis(null);
+    setAnalysisMode("demo");
+    setMessage("Photo ajoutée. Tu peux lancer l'analyse.");
   }
 
-  function handleAnalyze() {
-    if (!preview) {
+  async function handleAnalyze() {
+    if (!photoFile) {
       setMessage("Ajoute d'abord une photo de ton exercice.");
       return;
     }
 
     setIsAnalyzing(true);
-    setHasResult(false);
-    setMessage("Analyse en cours : vérification de la forme, de l'épaisseur et des zones à corriger.");
+    setAnalysis(null);
+    setMessage("Analyse en cours : l'image est envoyée à la route sécurisée.");
 
-    window.setTimeout(() => {
+    try {
+      const result = await requestPhotoAnalysis({
+        image: photoFile,
+        exercise: selectedExercise
+      });
+
+      setAnalysis(result.analysis);
+      setAnalysisMode(result.mode);
+      setMessage(result.message);
+    } catch {
+      setAnalysis(analysisByExercise[selectedExercise]);
+      setAnalysisMode("demo");
+      setMessage("L'analyse réelle n'a pas pu être lancée. Mode démo activé.");
+    } finally {
       setIsAnalyzing(false);
-      setHasResult(true);
-      setMessage("Analyse démo prête. La vraie IA pourra être branchée ensuite.");
-    }, 1200);
+    }
   }
+
+  const hasResult = Boolean(analysis);
+  const statusLabel = analysisMode === "ai" ? "Analyse IA réelle" : "Mode démo";
 
   return (
     <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
@@ -58,9 +87,9 @@ export function CoachAnalyzer() {
         <div className="mt-5 flex items-start gap-3 rounded-lg border border-champagne bg-champagne/60 p-4">
           <AlertCircle className="mt-1 shrink-0 text-ink" size={18} aria-hidden="true" />
           <div>
-            <p className="text-sm font-bold text-ink">Mode démo</p>
+            <p className="text-sm font-bold text-ink">Route IA sécurisée</p>
             <p className="mt-1 text-sm leading-6 text-muted">
-              L'analyse affichée est simulée tant que la vraie API IA n'est pas connectée.
+              Si `OPENAI_API_KEY` est configurée côté serveur, la photo est analysée par OpenAI Vision. Sinon, le site garde le mode démo.
             </p>
           </div>
         </div>
@@ -73,8 +102,9 @@ export function CoachAnalyzer() {
           value={selectedExercise}
           onChange={(event) => {
             setSelectedExercise(event.target.value);
-            setHasResult(false);
-            setMessage(preview ? "Exercice changé. Relance l'analyse pour obtenir le nouveau retour." : "Ajoute une photo pour lancer une analyse de démonstration.");
+            setAnalysis(null);
+            setAnalysisMode("demo");
+            setMessage(preview ? "Exercice changé. Relance l'analyse pour obtenir le nouveau retour." : "Ajoute une photo pour lancer une analyse.");
           }}
           className="focus-ring mt-2 w-full rounded-lg border border-rose-100 bg-petal px-4 py-3 text-sm font-semibold text-ink"
         >
@@ -96,10 +126,10 @@ export function CoachAnalyzer() {
             <>
               <Upload className="text-rosewood" size={34} aria-hidden="true" />
               <span className="mt-3 text-sm font-bold text-ink">Ajouter une photo</span>
-              <span className="mt-1 text-xs leading-5 text-muted">JPG, PNG ou photo prise avec le téléphone</span>
+              <span className="mt-1 text-xs leading-5 text-muted">JPG, PNG, WEBP ou GIF non animé</span>
             </>
           )}
-          <input id="photo" type="file" accept="image/*" className="sr-only" onChange={handleFileChange} />
+          <input id="photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="sr-only" onChange={handleFileChange} />
         </label>
 
         <button
@@ -109,7 +139,7 @@ export function CoachAnalyzer() {
           className="focus-ring mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-tight transition hover:bg-rosewood disabled:cursor-wait disabled:opacity-70"
         >
           {isAnalyzing ? <Loader2 className="animate-spin" size={18} aria-hidden="true" /> : <ClipboardCheck size={18} aria-hidden="true" />}
-          Analyser mon travail
+          {isAnalyzing ? "Analyse en cours" : "Analyser mon travail"}
         </button>
 
         <p className="mt-3 rounded-lg bg-petal px-4 py-3 text-sm leading-6 text-muted">{message}</p>
@@ -119,19 +149,21 @@ export function CoachAnalyzer() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.14em] text-rosewood">Résultat</p>
-            <h2 className="mt-2 text-2xl font-black text-ink">{hasResult ? `${analysis.score}/100` : "En attente"}</h2>
+            <h2 className="mt-2 text-2xl font-black text-ink">{analysis ? `${analysis.score}/100` : "En attente"}</h2>
           </div>
           <span className="rounded-full bg-petal px-3 py-1 text-xs font-bold text-rosewood">
-            {hasResult ? "Analyse démo prête" : "Mode démo"}
+            {hasResult ? statusLabel : "En attente"}
           </span>
         </div>
 
-        {hasResult ? (
+        {analysis ? (
           <div className="mt-6 space-y-5">
             <div className="rounded-lg border border-champagne bg-champagne/60 p-4">
-              <p className="text-sm font-bold text-ink">Lecture simulée de la photo</p>
+              <p className="text-sm font-bold text-ink">
+                {analysisMode === "ai" ? "Lecture réelle de la photo" : "Lecture simulée de la photo"}
+              </p>
               <p className="mt-2 text-sm leading-6 text-muted">
-                Exercice analysé : <span className="font-bold text-ink">{selectedExercise}</span>. La réponse ci-dessous imite le type de retour que donnera la vraie IA.
+                Exercice analysé : <span className="font-bold text-ink">{selectedExercise}</span>.
               </p>
             </div>
             <ResultBlock title="Points réussis" icon={CheckCircle2} items={analysis.strengths} tone="success" />

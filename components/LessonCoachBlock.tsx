@@ -3,6 +3,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Camera, CheckCircle2, ClipboardCheck, Loader2, Sparkles, Upload, XCircle } from "lucide-react";
 import { analysisByExercise } from "@/data/content";
+import type { CoachAnalysis } from "@/lib/coachAnalysis";
+import { requestPhotoAnalysis } from "@/components/photoAnalysisClient";
 
 type LessonCoachBlockProps = {
   lessonId: string;
@@ -12,11 +14,12 @@ type LessonCoachBlockProps = {
 const fallbackAnalysis = analysisByExercise["entraînement final"];
 
 export function LessonCoachBlock({ lessonId, exercise }: LessonCoachBlockProps) {
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [hasResult, setHasResult] = useState(false);
+  const [analysis, setAnalysis] = useState<CoachAnalysis | null>(null);
+  const [analysisMode, setAnalysisMode] = useState<"ai" | "demo">("demo");
   const [message, setMessage] = useState("");
-  const analysis = analysisByExercise[exercise] ?? fallbackAnalysis;
 
   useEffect(() => {
     return () => {
@@ -37,25 +40,39 @@ export function LessonCoachBlock({ lessonId, exercise }: LessonCoachBlockProps) 
       URL.revokeObjectURL(previewUrl);
     }
 
+    setPhotoFile(file);
     setPreviewUrl(URL.createObjectURL(file));
-    setHasResult(false);
+    setAnalysis(null);
+    setAnalysisMode("demo");
     setMessage("");
   }
 
-  function analyzePhoto() {
-    if (!previewUrl) {
+  async function analyzePhoto() {
+    if (!photoFile) {
       setMessage("Ajoute une photo de ton exercice avant de lancer l'analyse.");
       return;
     }
 
     setMessage("");
-    setHasResult(false);
+    setAnalysis(null);
     setIsAnalyzing(true);
 
-    window.setTimeout(() => {
+    try {
+      const result = await requestPhotoAnalysis({
+        image: photoFile,
+        exercise
+      });
+
+      setAnalysis(result.analysis);
+      setAnalysisMode(result.mode);
+      setMessage(result.message);
+    } catch {
+      setAnalysis(analysisByExercise[exercise] ?? fallbackAnalysis);
+      setAnalysisMode("demo");
+      setMessage("L'analyse réelle n'a pas pu être lancée. Mode démo activé.");
+    } finally {
       setIsAnalyzing(false);
-      setHasResult(true);
-    }, 1000);
+    }
   }
 
   return (
@@ -64,7 +81,7 @@ export function LessonCoachBlock({ lessonId, exercise }: LessonCoachBlockProps) 
         <div>
           <p className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-rosewood">
             <Sparkles size={13} aria-hidden="true" />
-            Mode démo
+            {analysisMode === "ai" && analysis ? "IA réelle" : "Mode démo possible"}
           </p>
           <h4 className="mt-3 text-base font-black text-ink">Coach IA intégré</h4>
           <p className="mt-1 text-sm leading-6 text-muted">
@@ -88,7 +105,7 @@ export function LessonCoachBlock({ lessonId, exercise }: LessonCoachBlockProps) 
           <input
             id={`lesson-photo-${lessonId}`}
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp,image/gif"
             className="sr-only"
             onChange={handleUpload}
           />
@@ -122,10 +139,12 @@ export function LessonCoachBlock({ lessonId, exercise }: LessonCoachBlockProps) 
         </div>
 
         <div className="rounded-lg border border-rose-100 bg-white p-4">
-          {hasResult ? (
+          {analysis ? (
             <div>
               <div className="flex items-center justify-between gap-3">
-                <p className="text-sm font-bold text-ink">Analyse simulée</p>
+                <p className="text-sm font-bold text-ink">
+                  {analysisMode === "ai" ? "Analyse IA réelle" : "Analyse simulée"}
+                </p>
                 <span className="rounded-full bg-sage/10 px-3 py-1 text-sm font-black text-sage">
                   {analysis.score}/100
                 </span>

@@ -1,6 +1,6 @@
 # OngleMentor AI
 
-Application web responsive mobile-first pour une formation de prothésie ongulaire avec parcours gratuit, formation débutante premium en mode test, matériel recommandé, tableau de bord, progression locale et coach IA photo en mode démo.
+Application web responsive mobile-first pour une formation de prothésie ongulaire avec parcours gratuit, formation débutante premium en mode test, matériel recommandé, tableau de bord, progression locale et coach IA photo.
 
 ## Lancer en local
 
@@ -10,6 +10,16 @@ npm run dev
 ```
 
 Puis ouvrir `http://localhost:3000`.
+
+## Coach IA OpenAI Vision
+
+Créer un fichier `.env.local` à la racine du projet :
+
+```bash
+OPENAI_API_KEY=sk-votre-cle-openai
+```
+
+Si la clé est absente, le coach IA garde automatiquement le mode démo.
 
 ## Pages incluses
 
@@ -33,5 +43,5 @@ Puis ouvrir `http://localhost:3000`.
 ## Prévu pour la suite
 
 - Brancher Supabase pour les comptes élèves, les progressions et les photos.
-- Remplacer le mode démo par une vraie API IA.
+- Ajouter un historique serveur des analyses IA.
 - Ajouter Stripe ou une autre solution de paiement.
