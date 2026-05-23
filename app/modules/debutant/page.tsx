@@ -25,8 +25,13 @@ export default function BeginnerModulePage() {
         </div>
       </div>
       <div className="mt-8 space-y-4">
-        {beginnerPremiumLessons.map((lesson) => (
-          <TrainingLessonCard key={lesson.id} lesson={lesson} allLessonIds={allLessonIds} />
+        {beginnerPremiumLessons.map((lesson, index) => (
+          <TrainingLessonCard
+            key={lesson.id}
+            lesson={lesson}
+            allLessonIds={allLessonIds}
+            nextLessonId={beginnerPremiumLessons[index + 1]?.id}
+          />
         ))}
       </div>
     </section>

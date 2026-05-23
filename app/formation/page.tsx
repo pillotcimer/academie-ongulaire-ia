@@ -56,8 +56,13 @@ export default function FormationPage() {
           </div>
 
           <div className="mt-8 space-y-4">
-            {freeCourseLessons.map((lesson) => (
-              <TrainingLessonCard key={lesson.id} lesson={lesson} allLessonIds={allLessonIds} />
+            {freeCourseLessons.map((lesson, index) => (
+              <TrainingLessonCard
+                key={lesson.id}
+                lesson={lesson}
+                allLessonIds={allLessonIds}
+                nextLessonId={freeCourseLessons[index + 1]?.id}
+              />
             ))}
           </div>
 
@@ -98,8 +103,13 @@ export default function FormationPage() {
         </div>
 
         <div className="mt-8 space-y-4">
-          {beginnerPremiumLessons.map((lesson) => (
-            <TrainingLessonCard key={lesson.id} lesson={lesson} allLessonIds={allLessonIds} />
+          {beginnerPremiumLessons.map((lesson, index) => (
+            <TrainingLessonCard
+              key={lesson.id}
+              lesson={lesson}
+              allLessonIds={allLessonIds}
+              nextLessonId={beginnerPremiumLessons[index + 1]?.id}
+            />
           ))}
         </div>
       </section>

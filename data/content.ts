@@ -534,9 +534,34 @@ export type CourseLesson = {
   explanation: string;
   checklist: string[];
   exercise: string;
+  videoTitle: string;
+  videoDuration: string;
+  videoUrl: string;
+  correctExample: string;
+  commonError: string;
+  expectedResult: string;
+  coachExercise: string;
+  practice: {
+    objective: string;
+    instructions: string[];
+    expectedResult: string;
+    mistakesToAvoid: string[];
+  };
 };
 
-export const freeCourseLessons: CourseLesson[] = [
+type CourseLessonSeed = Omit<
+  CourseLesson,
+  | "videoTitle"
+  | "videoDuration"
+  | "videoUrl"
+  | "correctExample"
+  | "commonError"
+  | "expectedResult"
+  | "coachExercise"
+  | "practice"
+>;
+
+const freeCourseLessonsBase: CourseLessonSeed[] = [
   {
     id: "free-materiel-base",
     title: "Matériel de base",
@@ -587,7 +612,7 @@ export const freeCourseLessons: CourseLesson[] = [
   }
 ];
 
-export const beginnerPremiumLessons: CourseLesson[] = [
+const beginnerPremiumLessonsBase: CourseLessonSeed[] = [
   {
     id: "premium-materiel-complet",
     title: "Matériel complet",
@@ -734,6 +759,318 @@ export const beginnerPremiumLessons: CourseLesson[] = [
   }
 ];
 
+type LessonExperience = Pick<
+  CourseLesson,
+  | "videoTitle"
+  | "videoDuration"
+  | "videoUrl"
+  | "correctExample"
+  | "commonError"
+  | "expectedResult"
+  | "coachExercise"
+  | "practice"
+>;
+
+const lessonExperienceById: Record<string, LessonExperience> = {
+  "free-materiel-base": {
+    videoTitle: "Préparer son premier kit sans gaspiller",
+    videoDuration: "8 min",
+    videoUrl: "",
+    correctExample: "Un poste simple avec uniquement la lampe, les limes, les capsules, les produits de préparation et le gel nécessaires à l'exercice.",
+    commonError: "Acheter un grand coffret peu fiable avec trop de produits inconnus au lieu de sécuriser les indispensables.",
+    expectedResult: "Tu obtiens une liste d'achat claire, classée par priorité et adaptée à ton budget réel.",
+    coachExercise: "hygiène du poste",
+    practice: {
+      objective: "Construire ton kit de départ en séparant indispensable, confort et achat plus tard.",
+      instructions: [
+        "Note ton budget maximum.",
+        "Choisis une lampe UV/LED, des limes, un buffer, des capsules, une base, un gel, un top coat, un cleaner et un primer.",
+        "Range chaque achat dans une catégorie : obligatoire, utile ou plus tard.",
+        "Prends une photo de ton espace prévu pour vérifier s'il est assez propre et éclairé."
+      ],
+      expectedResult: "Une liste courte, réaliste et directement utilisable pour commencer la formation.",
+      mistakesToAvoid: [
+        "Multiplier les gels couleur avant de maîtriser la construction.",
+        "Oublier le cleaner, le primer ou les consommables d'hygiène.",
+        "Prévoir un poste trop sombre ou trop encombré."
+      ]
+    }
+  },
+  "free-hygiene": {
+    videoTitle: "Les gestes d'hygiène avant chaque pose",
+    videoDuration: "10 min",
+    videoUrl: "",
+    correctExample: "Une table désinfectée, des outils propres, les produits fermés et une zone poussière séparée de la zone propre.",
+    commonError: "Commencer la pose avec des limes déjà utilisées, de la poussière sur la table ou des produits trop près du bord.",
+    expectedResult: "Ton poste est propre, organisé et prêt pour travailler sans croiser matériel propre et matériel sale.",
+    coachExercise: "hygiène du poste",
+    practice: {
+      objective: "Installer un poste d'entraînement propre avant de toucher l'ongle.",
+      instructions: [
+        "Nettoie la table et garde uniquement le matériel de la leçon.",
+        "Sépare les outils propres, les consommables et la zone poussière.",
+        "Place cleaner, primer et gels hors du bord de table.",
+        "Prends une photo du poste vu du dessus."
+      ],
+      expectedResult: "Une photo où chaque outil a une place claire et où la zone de travail reste dégagée.",
+      mistakesToAvoid: [
+        "Laisser les cotons utilisés sur la table.",
+        "Poser les gels ouverts près de la poussière.",
+        "Mélanger outils propres et outils déjà utilisés."
+      ]
+    }
+  },
+  "free-preparation": {
+    videoTitle: "Préparer l'ongle naturel sans l'abîmer",
+    videoDuration: "12 min",
+    videoUrl: "",
+    correctExample: "Une plaque matifiée de façon uniforme, sans zone brillante sur les côtés et sans rougeur près des cuticules.",
+    commonError: "Trop limer le centre de l'ongle tout en oubliant les côtés et le contour des cuticules.",
+    expectedResult: "L'ongle est propre, dépoussiéré, matifié et prêt à recevoir la base ou le primer.",
+    coachExercise: "préparation de l'ongle",
+    practice: {
+      objective: "Préparer un ongle d'entraînement avec une surface régulière et non agressée.",
+      instructions: [
+        "Repousse doucement les cuticules.",
+        "Matifie toute la plaque avec une lime douce ou un buffer.",
+        "Dépoussière les côtés et le bord libre.",
+        "Prends une photo nette sous bonne lumière avant d'appliquer le produit."
+      ],
+      expectedResult: "Une plaque mate, propre, sans poussière visible et sans contact produit avec la peau.",
+      mistakesToAvoid: [
+        "Créer une trace rouge en limant trop fort.",
+        "Laisser les côtés brillants.",
+        "Appliquer le primer avant d'avoir retiré toute la poussière."
+      ]
+    }
+  },
+  "premium-materiel-complet": {
+    videoTitle: "Composer un poste complet de débutante sérieuse",
+    videoDuration: "14 min",
+    videoUrl: "",
+    correctExample: "Un poste avec lampe stable, limes adaptées, gels de base, pinceaux, rangement propre et lumière orientée vers la main.",
+    commonError: "Investir dans la décoration ou les couleurs avant d'avoir une lampe fiable, de bons consommables et une organisation propre.",
+    expectedResult: "Tu sais exactement quoi acheter pour suivre tout le parcours débutant sans interruption.",
+    coachExercise: "hygiène du poste",
+    practice: {
+      objective: "Préparer le poste complet qui servira pendant toute la formation premium.",
+      instructions: [
+        "Liste ton matériel actuel.",
+        "Ajoute les manques pour capsule, gel, limage et finition.",
+        "Prévois une boîte pour les outils propres et une autre pour les consommables.",
+        "Photographie ton poste complet avant la première pose."
+      ],
+      expectedResult: "Un espace cohérent, stable et assez équipé pour faire une pose complète d'entraînement.",
+      mistakesToAvoid: [
+        "Acheter une ponceuse agressive sans savoir la régler.",
+        "Oublier l'aspiration ou le dépoussiérage.",
+        "Mélanger les produits liquides et la zone de limage."
+      ]
+    }
+  },
+  "premium-anatomie": {
+    videoTitle: "Comprendre l'ongle avant de poser",
+    videoDuration: "13 min",
+    videoUrl: "",
+    correctExample: "Tu sais montrer la plaque, les cuticules, les replis latéraux, le bord libre, la zone de stress et l'emplacement de l'apex.",
+    commonError: "Confondre cuticule et peau vivante, ou placer la matière sans comprendre la zone de stress.",
+    expectedResult: "Tu sais où travailler, où éviter d'insister et pourquoi la construction doit renforcer certaines zones.",
+    coachExercise: "préparation de l'ongle",
+    practice: {
+      objective: "Identifier les zones importantes sur une photo d'ongle naturel.",
+      instructions: [
+        "Prends ou choisis une photo nette d'un ongle naturel.",
+        "Repère la plaque, les côtés, le bord libre et les cuticules.",
+        "Note où la matière devra renforcer l'ongle.",
+        "Compare avec ton propre ongle d'entraînement avant de préparer."
+      ],
+      expectedResult: "Tu peux expliquer simplement les zones à protéger et les zones à renforcer.",
+      mistakesToAvoid: [
+        "Travailler trop près de la peau.",
+        "Limer sans regarder l'état de l'ongle.",
+        "Placer l'apex au hasard."
+      ]
+    }
+  },
+  "premium-preparation": {
+    videoTitle: "Le protocole complet de préparation",
+    videoDuration: "16 min",
+    videoUrl: "",
+    correctExample: "L'ongle est observé, les cuticules sont repoussées, la plaque est mate, les côtés sont propres et la poussière est retirée.",
+    commonError: "Faire vite la préparation puis compenser avec plus de gel, ce qui augmente les décollements.",
+    expectedResult: "Une base saine, régulière et adhérente avant capsule ou gel.",
+    coachExercise: "préparation de l'ongle",
+    practice: {
+      objective: "Réaliser une préparation complète sur deux ongles d'entraînement.",
+      instructions: [
+        "Observe l'état de l'ongle avant de commencer.",
+        "Repousse les cuticules doucement.",
+        "Matifie toute la plaque, surtout les côtés.",
+        "Dépoussière puis photographie avant la base."
+      ],
+      expectedResult: "Deux ongles préparés de façon similaire, propres et sans zone brillante visible.",
+      mistakesToAvoid: [
+        "Limer trop fort au centre.",
+        "Oublier les replis latéraux.",
+        "Toucher la peau avec les produits d'adhérence."
+      ]
+    }
+  },
+  "premium-pose-capsule": {
+    videoTitle: "Choisir, coller et aligner une capsule",
+    videoDuration: "18 min",
+    videoUrl: "",
+    correctExample: "La capsule couvre les côtés sans forcer, l'axe suit le doigt et aucune bulle n'est visible dans la zone de collage.",
+    commonError: "Choisir une capsule trop petite, la forcer sur les côtés puis obtenir une pose qui se décolle ou part de travers.",
+    expectedResult: "Trois capsules posées droites, raccourcies et prêtes pour la construction.",
+    coachExercise: "pose capsule",
+    practice: {
+      objective: "Poser trois capsules avec une longueur et un axe réguliers.",
+      instructions: [
+        "Choisis la taille de capsule pour chaque ongle.",
+        "Colle sans bulle en appuyant progressivement.",
+        "Raccourcis à une longueur d'entraînement.",
+        "Photographie de face pour vérifier l'axe."
+      ],
+      expectedResult: "Des capsules centrées, sans débordement et avec une longueur cohérente.",
+      mistakesToAvoid: [
+        "Forcer une capsule trop petite.",
+        "Laisser une bulle de colle.",
+        "Raccourcir après avoir mis trop de matière."
+      ]
+    }
+  },
+  "premium-application-gel": {
+    videoTitle: "Construire au gel avec un apex propre",
+    videoDuration: "20 min",
+    videoUrl: "",
+    correctExample: "La matière est plus présente sur la zone de stress, plus fine aux côtés, sans toucher les cuticules.",
+    commonError: "Mettre la même épaisseur partout, ce qui crée une pose plate, large ou fragile.",
+    expectedResult: "Une construction simple avec un volume visible de profil et des contours propres.",
+    coachExercise: "application gel",
+    practice: {
+      objective: "Réaliser une construction gel simple sur une capsule posée.",
+      instructions: [
+        "Applique une couche de base fine.",
+        "Pose une petite quantité de gel au centre de la zone de stress.",
+        "Guide la matière sans toucher les cuticules.",
+        "Catalyse puis prends une photo de face et de profil."
+      ],
+      expectedResult: "Une construction régulière, pas trop épaisse, avec un apex identifiable.",
+      mistakesToAvoid: [
+        "Noyer les cuticules.",
+        "Créer un apex trop plat.",
+        "Laisser les côtés trop lourds."
+      ]
+    }
+  },
+  "premium-limage": {
+    videoTitle: "Limer la forme et équilibrer le volume",
+    videoDuration: "17 min",
+    videoUrl: "",
+    correctExample: "Les côtés sont parallèles, le bord libre est symétrique et la surface ne présente pas de bosse visible.",
+    commonError: "Corriger uniquement le dessus sans regarder l'ongle de face et de profil.",
+    expectedResult: "Une forme nette, confortable et prête pour la finition.",
+    coachExercise: "limage",
+    practice: {
+      objective: "Limer une pose simple en contrôlant face, côtés et profil.",
+      instructions: [
+        "Commence par le bord libre.",
+        "Travaille les côtés avec la lime parallèle.",
+        "Affiner la surface sans supprimer l'apex.",
+        "Prends une photo de face pour contrôler la symétrie."
+      ],
+      expectedResult: "Une forme régulière avec une épaisseur équilibrée et des contours doux.",
+      mistakesToAvoid: [
+        "Creuser un côté plus que l'autre.",
+        "Enlever toute la zone de renfort.",
+        "Laisser un bord libre trop épais."
+      ]
+    }
+  },
+  "premium-finition": {
+    videoTitle: "Obtenir une finition propre et brillante",
+    videoDuration: "11 min",
+    videoUrl: "",
+    correctExample: "Le top coat est fin, le bord libre est scellé, le contour est net et la brillance reste uniforme.",
+    commonError: "Mettre trop de top coat près des côtés, ce qui crée un bourrelet ou touche la peau.",
+    expectedResult: "Une pose brillante, nette et photographiable sous lumière naturelle.",
+    coachExercise: "finition",
+    practice: {
+      objective: "Finaliser une pose avec un top coat propre et un contrôle photo.",
+      instructions: [
+        "Retire toute la poussière avant le top.",
+        "Applique une couche fine et régulière.",
+        "Scelle le bord libre sans surcharge.",
+        "Photographie la pose finale sous une lumière claire."
+      ],
+      expectedResult: "Un rendu propre, brillant, sans poussière piégée et sans produit sur la peau.",
+      mistakesToAvoid: [
+        "Créer une surcharge sur les côtés.",
+        "Oublier le bord libre.",
+        "Appliquer le top sur une surface poussiéreuse."
+      ]
+    }
+  },
+  "premium-erreurs-frequentes": {
+    videoTitle: "Diagnostiquer les défauts les plus courants",
+    videoDuration: "15 min",
+    videoUrl: "",
+    correctExample: "Tu peux relier un décollement, une bosse, une asymétrie ou un apex plat à une cause probable.",
+    commonError: "Camoufler un défaut avec plus de matière au lieu de comprendre l'étape qui l'a provoqué.",
+    expectedResult: "Tu sais quoi corriger en priorité avant de refaire l'exercice.",
+    coachExercise: "entraînement final",
+    practice: {
+      objective: "Analyser une ancienne photo d'exercice et trouver trois corrections prioritaires.",
+      instructions: [
+        "Choisis une photo d'une pose ou d'un exercice.",
+        "Repère un défaut de préparation, un défaut de forme et un défaut de finition.",
+        "Note la cause probable de chaque défaut.",
+        "Envoie la photo au coach pour comparer ton diagnostic."
+      ],
+      expectedResult: "Une liste de corrections concrètes à appliquer sur la prochaine pose.",
+      mistakesToAvoid: [
+        "Tout corriger en même temps sans priorité.",
+        "Confondre défaut esthétique et défaut de tenue.",
+        "Ignorer les signes de contact avec la peau."
+      ]
+    }
+  },
+  "premium-entrainement-final": {
+    videoTitle: "Réaliser une pose complète débutante",
+    videoDuration: "25 min",
+    videoUrl: "",
+    correctExample: "La pose suit toutes les étapes dans l'ordre, avec une longueur raisonnable, une forme régulière et une finition propre.",
+    commonError: "Se précipiter sur la finition sans vérifier l'axe, l'épaisseur et le profil avant le top coat.",
+    expectedResult: "Une pose complète propre, pas parfaite, mais assez régulière pour mesurer tes progrès.",
+    coachExercise: "entraînement final",
+    practice: {
+      objective: "Faire une pose complète sur main d'entraînement en respectant tout le protocole.",
+      instructions: [
+        "Prépare ton poste et ton matériel.",
+        "Réalise préparation, capsule, gel, limage et finition.",
+        "Prends une photo de face et une photo de profil.",
+        "Analyse le résultat puis note l'objectif du prochain entraînement."
+      ],
+      expectedResult: "Une pose complète analysable, avec des points forts et des corrections claires.",
+      mistakesToAvoid: [
+        "Allonger trop dès le premier essai.",
+        "Négliger les photos de profil.",
+        "Valider sans relire les étapes de contrôle."
+      ]
+    }
+  }
+};
+
+function enrichLesson(lesson: CourseLessonSeed): CourseLesson {
+  return {
+    ...lesson,
+    ...lessonExperienceById[lesson.id]
+  };
+}
+
+export const freeCourseLessons = freeCourseLessonsBase.map(enrichLesson);
+export const beginnerPremiumLessons = beginnerPremiumLessonsBase.map(enrichLesson);
 export const allTrainingLessons = [...freeCourseLessons, ...beginnerPremiumLessons];
 
 export const materialBudgetGuides = [

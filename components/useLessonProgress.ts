@@ -33,15 +33,14 @@ export function useLessonProgress(totalLessonIds: string[]) {
     setCompletedLessons(next);
 
     try {
-      window.localStorage?.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      // Some embedded browsers can block localStorage; the current session still updates.
-    }
+      if (!window.localStorage) {
+        return;
+      }
 
-    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
       window.dispatchEvent(new CustomEvent("onglementor-progress-updated"));
     } catch {
-      // No-op when CustomEvent dispatch is unavailable.
+      // Some embedded browsers can block localStorage; the current session still updates.
     }
   }, []);
 
@@ -53,6 +52,20 @@ export function useLessonProgress(totalLessonIds: string[]) {
         : [...current, lessonId];
 
       persist(next);
+    },
+    [persist]
+  );
+
+  const completeLesson = useCallback(
+    (lessonId: string) => {
+      const current = readCompletedLessons();
+
+      if (current.includes(lessonId)) {
+        persist(current);
+        return;
+      }
+
+      persist([...current, lessonId]);
     },
     [persist]
   );
@@ -83,6 +96,7 @@ export function useLessonProgress(totalLessonIds: string[]) {
     completedCount: completedInScope.length,
     progress,
     isCompleted: (lessonId: string) => completedLessons.includes(lessonId),
-    toggleLesson
+    toggleLesson,
+    completeLesson
   };
 }
