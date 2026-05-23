@@ -664,11 +664,11 @@ const beginnerPremiumLessonsBase: CourseLessonSeed[] = [
   {
     id: "premium-pose-capsule",
     title: "Pose capsule",
-    duration: "50 min",
+    duration: "75 min",
     level: "Débutant premium",
-    objective: "Poser une capsule droite, adaptée et prête à recevoir la matière.",
+    objective: "Poser une capsule droite, adaptée, sans bulle d'air et prête à recevoir le gel.",
     explanation:
-      "Tu apprends à choisir la bonne taille, coller sans bulle, vérifier l'axe, raccourcir, puis fondre la démarcation. Une capsule trop petite force les côtés, une capsule trop grande déborde et donne une pose fragile.",
+      "Cette leçon premium détaille toute la pose de capsule : choix de la taille, contrôle des côtés, préparation, colle, pose sans bulle, axe, coupe, limage et photo finale envoyée au coach IA.",
     checklist: [
       "Choisir une capsule qui couvre les côtés",
       "Coller sans bulle d'air",
@@ -917,26 +917,26 @@ const lessonExperienceById: Record<string, LessonExperience> = {
     }
   },
   "premium-pose-capsule": {
-    videoTitle: "Choisir, coller et aligner une capsule",
+    videoTitle: "Démonstration complète de pose capsule",
     videoDuration: "18 min",
     videoUrl: "",
     correctExample: "La capsule couvre les côtés sans forcer, l'axe suit le doigt et aucune bulle n'est visible dans la zone de collage.",
     commonError: "Choisir une capsule trop petite, la forcer sur les côtés puis obtenir une pose qui se décolle ou part de travers.",
-    expectedResult: "Trois capsules posées droites, raccourcies et prêtes pour la construction.",
+    expectedResult: "Une capsule droite, courte, propre, sans bulle visible et prête pour l'application du gel.",
     coachExercise: "pose capsule",
     practice: {
-      objective: "Poser trois capsules avec une longueur et un axe réguliers.",
+      objective: "Poser une capsule sur un doigt d'entraînement ou une main d'entraînement, puis envoyer une photo.",
       instructions: [
-        "Choisis la taille de capsule pour chaque ongle.",
-        "Colle sans bulle en appuyant progressivement.",
-        "Raccourcis à une longueur d'entraînement.",
-        "Photographie de face pour vérifier l'axe."
+        "Choisis une capsule qui couvre les deux côtés.",
+        "Prépare l'ongle avant collage.",
+        "Colle progressivement pour éviter la bulle d'air.",
+        "Coupe court, lime, puis photographie de face."
       ],
-      expectedResult: "Des capsules centrées, sans débordement et avec une longueur cohérente.",
+      expectedResult: "Une capsule centrée, sans débordement, sans bulle et avec une longueur facile à travailler.",
       mistakesToAvoid: [
         "Forcer une capsule trop petite.",
         "Laisser une bulle de colle.",
-        "Raccourcir après avoir mis trop de matière."
+        "Oublier de vérifier l'axe avant de couper."
       ]
     }
   },

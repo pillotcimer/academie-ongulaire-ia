@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { ArrowRight, BadgeCheck, CheckCircle2, ClipboardCheck, Target, TriangleAlert } from "lucide-react";
 import type { CourseLesson } from "@/data/content";
 import { getLessonMedia } from "@/data/mediaLibrary";
+import { CapsulePosePremiumLesson } from "@/components/CapsulePosePremiumLesson";
 import { InteractiveChecklist } from "@/components/InteractiveChecklist";
 import { LessonCoachBlock } from "@/components/LessonCoachBlock";
 import { VideoLessonBlock } from "@/components/VideoLessonBlock";
@@ -17,6 +18,14 @@ type TrainingLessonCardProps = {
 };
 
 export function TrainingLessonCard({ lesson, allLessonIds, nextLessonId }: TrainingLessonCardProps) {
+  if (lesson.id === "premium-pose-capsule") {
+    return <CapsulePosePremiumLesson lesson={lesson} allLessonIds={allLessonIds} nextLessonId={nextLessonId} />;
+  }
+
+  return <GenericTrainingLessonCard lesson={lesson} allLessonIds={allLessonIds} nextLessonId={nextLessonId} />;
+}
+
+function GenericTrainingLessonCard({ lesson, allLessonIds, nextLessonId }: TrainingLessonCardProps) {
   const { isCompleted, completeLesson } = useLessonProgress(allLessonIds);
   const completed = isCompleted(lesson.id);
   const media = getLessonMedia(lesson.id);
