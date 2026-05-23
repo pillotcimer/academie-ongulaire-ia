@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Finition</title>
+  <desc id="desc">Placeholder visuel pour une leçon de finition.</desc>
+  <rect width="960" height="540" fill="#242124"/>
+  <circle cx="284" cy="230" r="72" fill="#f7dce5"/>
+  <circle cx="474" cy="264" r="86" fill="#a94c67"/>
+  <circle cx="676" cy="214" r="62" fill="#f7e8c8"/>
+  <path d="M198 364h560" stroke="#ffffff" stroke-width="16" stroke-linecap="round"/>
+  <path d="M690 100l18 48 48 18-48 18-18 48-18-48-48-18 48-18z" fill="#ffffff"/>
+  <text x="156" y="456" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="700">Finition brillante</text>
+</svg>

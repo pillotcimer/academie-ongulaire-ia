@@ -6,6 +6,11 @@ export type CapsulePoseStep = {
   commonError: string;
   correction: string;
   imageLabel: string;
+  imageUrl: string;
+  goodExample: string;
+  badExample: string;
+  expectedResult: string;
+  visualTip: string;
 };
 
 export type CapsuleGalleryItem = {
@@ -40,7 +45,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Prendre une capsule trop petite parce qu'elle semble plus fine et plus jolie.",
     correction: "Prends la taille au-dessus, puis lime doucement les côtés pour l'adapter à l'ongle.",
-    imageLabel: "Capsule alignée avant collage"
+    imageLabel: "Capsule alignée avant collage",
+    imageUrl: "/images/lessons/capsule.svg",
+    goodExample: "La capsule couvre les deux côtés sans pression.",
+    badExample: "La capsule laisse un espace sur les côtés ou pince l'ongle.",
+    expectedResult: "Une capsule choisie avant colle, stable et adaptée à la largeur de l'ongle.",
+    visualTip: "Si tu hésites entre deux tailles, prends la plus grande et lime les côtés."
   },
   {
     id: "check-sides",
@@ -55,7 +65,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Se concentrer uniquement sur le centre de l'ongle et oublier les côtés.",
     correction: "Avant collage, incline légèrement le doigt et vérifie les deux côtés sous la lumière.",
-    imageLabel: "Contrôle des côtés"
+    imageLabel: "Contrôle des côtés",
+    imageUrl: "/images/lessons/capsule.svg",
+    goodExample: "Les côtés touchent la capsule sans débordement sur la peau.",
+    badExample: "Un côté reste découvert ou la capsule passe sur le repli latéral.",
+    expectedResult: "Les deux côtés sont couverts de façon régulière.",
+    visualTip: "Regarde le doigt légèrement incliné pour voir le côté gauche puis le côté droit."
   },
   {
     id: "prepare-nail",
@@ -70,7 +85,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Coller sur un ongle encore brillant ou poussiéreux.",
     correction: "Reprends le matifiage doucement puis dépoussière avant de coller.",
-    imageLabel: "Ongle préparé"
+    imageLabel: "Ongle préparé",
+    imageUrl: "/images/lessons/preparation.svg",
+    goodExample: "L'ongle est mat, propre et sans poussière visible.",
+    badExample: "La surface brille encore ou la poussière reste dans les côtés.",
+    expectedResult: "Une base propre qui permet à la colle d'adhérer correctement.",
+    visualTip: "La lumière ne doit pas créer de reflet brillant sur la plaque."
   },
   {
     id: "apply-glue",
@@ -85,7 +105,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Mettre trop de colle, ce qui crée des débordements et des bulles.",
     correction: "Essuie l'excès avant la pose ou recommence avec une capsule propre.",
-    imageLabel: "Colle fine dans l'encoche"
+    imageLabel: "Colle fine dans l'encoche",
+    imageUrl: "/images/lessons/capsule.svg",
+    goodExample: "La colle forme un film fin dans la zone de contact.",
+    badExample: "Une grosse goutte déborde vers la peau ou les côtés.",
+    expectedResult: "Assez de colle pour adhérer, pas assez pour couler.",
+    visualTip: "Mieux vaut une fine couche bien placée qu'une grosse quantité."
   },
   {
     id: "no-air-bubble",
@@ -100,7 +125,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Poser la capsule à plat d'un coup, ce qui emprisonne l'air.",
     correction: "Retire la capsule si la bulle est importante, nettoie, puis recommence lentement.",
-    imageLabel: "Pose progressive sans bulle"
+    imageLabel: "Pose progressive sans bulle",
+    imageUrl: "/images/lessons/capsule.svg",
+    goodExample: "La capsule descend progressivement et la colle se répartit sans zone blanche.",
+    badExample: "Une bulle blanche reste visible sous la capsule.",
+    expectedResult: "Aucune bulle visible dans la zone de collage.",
+    visualTip: "Commence en angle puis baisse lentement la capsule."
   },
   {
     id: "check-axis",
@@ -115,7 +145,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Aligner la capsule sur un ongle naturel déjà un peu de travers.",
     correction: "Aligne-toi sur le doigt complet, puis corrige la forme au limage.",
-    imageLabel: "Axe central du doigt"
+    imageLabel: "Axe central du doigt",
+    imageUrl: "/images/lessons/capsule.svg",
+    goodExample: "La capsule prolonge la ligne centrale du doigt.",
+    badExample: "Le bord libre part vers la gauche ou vers la droite.",
+    expectedResult: "Un axe droit avant de couper et limer.",
+    visualTip: "Pose le doigt à plat et regarde depuis la main, pas seulement depuis l'ongle."
   },
   {
     id: "cut-file",
@@ -130,7 +165,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Garder une longueur trop grande dès le premier essai.",
     correction: "Raccourcis : une capsule courte est plus facile à aligner, limer et renforcer.",
-    imageLabel: "Longueur courte et limée"
+    imageLabel: "Longueur courte et limée",
+    imageUrl: "/images/lessons/filing.svg",
+    goodExample: "La longueur est courte, régulière et facile à contrôler.",
+    badExample: "La capsule est trop longue ou le bord libre part de travers.",
+    expectedResult: "Un bord libre net, court et prêt pour la construction gel.",
+    visualTip: "Pour débuter, coupe plus court que ce que tu trouves joli."
   },
   {
     id: "send-photo",
@@ -145,7 +185,12 @@ export const capsulePoseSteps: CapsulePoseStep[] = [
     ],
     commonError: "Envoyer une photo trop sombre ou trop proche pour voir l'axe.",
     correction: "Recule légèrement, pose la main à plat et prends une photo de face.",
-    imageLabel: "Photo prête pour analyse"
+    imageLabel: "Photo prête pour analyse",
+    imageUrl: "/images/lessons/good-bad.svg",
+    goodExample: "La photo montre la capsule entière, les côtés et l'axe du doigt.",
+    badExample: "La photo est floue, trop proche ou trop sombre.",
+    expectedResult: "Une photo claire que le coach IA peut réellement analyser.",
+    visualTip: "Utilise une lumière de côté et garde le téléphone stable."
   }
 ];
 

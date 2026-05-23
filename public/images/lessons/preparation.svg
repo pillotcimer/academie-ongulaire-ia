@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Préparation de l'ongle</title>
+  <desc id="desc">Placeholder visuel pour une leçon de préparation de l'ongle.</desc>
+  <rect width="960" height="540" fill="#fff5f7"/>
+  <path d="M170 340c78-118 236-144 344-48 56 50 128 58 232 10" fill="none" stroke="#ffffff" stroke-width="76" stroke-linecap="round"/>
+  <path d="M230 312c64-70 178-78 250-14" fill="none" stroke="#a94c67" stroke-width="22" stroke-linecap="round"/>
+  <path d="M600 170l176 68" stroke="#242124" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="226" cy="202" r="26" fill="#7a9a87"/>
+  <circle cx="720" cy="346" r="18" fill="#e8d8cb"/>
+  <text x="94" y="460" fill="#242124" font-family="Arial, sans-serif" font-size="48" font-weight="700">Préparation propre</text>
+</svg>

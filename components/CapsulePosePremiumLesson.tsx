@@ -15,7 +15,11 @@ import {
 } from "lucide-react";
 import type { CourseLesson } from "@/data/content";
 import { capsuleGallery, capsuleLessonMaterials, capsulePoseSteps } from "@/data/capsulePoseLesson";
+import { getLessonVisuals } from "@/data/lessonVisuals";
 import { getLessonMedia } from "@/data/mediaLibrary";
+import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
+import { CommonMistakesGallery } from "@/components/CommonMistakesGallery";
+import { ExpectedResultGallery } from "@/components/ExpectedResultGallery";
 import { LessonCoachBlock } from "@/components/LessonCoachBlock";
 import { VideoLessonBlock } from "@/components/VideoLessonBlock";
 import { useLessonProgress } from "@/components/useLessonProgress";
@@ -47,6 +51,7 @@ export function CapsulePosePremiumLesson({ lesson, allLessonIds, nextLessonId }:
   const [understoodSteps, setUnderstoodSteps] = useState<string[]>([]);
   const completed = isCompleted(lesson.id);
   const media = getLessonMedia(lesson.id);
+  const visuals = getLessonVisuals(lesson.id);
 
   useEffect(() => {
     setUnderstoodSteps(readUnderstoodSteps());
@@ -130,6 +135,14 @@ export function CapsulePosePremiumLesson({ lesson, allLessonIds, nextLessonId }:
       <div className="mt-5">
         <VideoLessonBlock title="Démonstration : poser une capsule proprement" duration="18 min" videoUrl={lesson.videoUrl} media={media} />
       </div>
+
+      {visuals ? (
+        <div className="mt-5 space-y-5">
+          <BeforeAfterGallery items={visuals.beforeAfter} />
+          <CommonMistakesGallery mistakes={visuals.commonMistakes} />
+          <ExpectedResultGallery results={visuals.expectedResults} />
+        </div>
+      ) : null}
 
       <section className="mt-6">
         <div className="flex items-start gap-3">
@@ -233,7 +246,7 @@ function StepCard({
   return (
     <section className="rounded-lg border border-rose-100 bg-white p-4">
       <div className="grid gap-4 lg:grid-cols-[0.72fr_1.28fr]">
-        <CapsulePlaceholder label={step.imageLabel} index={index} status="good" />
+        <CapsulePlaceholder label={step.imageLabel} index={index} status="good" imageUrl={step.imageUrl} />
 
         <div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -285,6 +298,26 @@ function StepCard({
             </div>
           </div>
 
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="rounded-lg bg-sage/10 p-3">
+              <p className="text-sm font-bold text-sage">Bon exemple</p>
+              <p className="mt-1 text-sm leading-6 text-muted">{step.goodExample}</p>
+            </div>
+            <div className="rounded-lg bg-petal p-3">
+              <p className="text-sm font-bold text-rosewood">Mauvais exemple</p>
+              <p className="mt-1 text-sm leading-6 text-muted">{step.badExample}</p>
+            </div>
+            <div className="rounded-lg border border-rose-100 bg-white p-3">
+              <p className="text-sm font-bold text-ink">Résultat attendu</p>
+              <p className="mt-1 text-sm leading-6 text-muted">{step.expectedResult}</p>
+            </div>
+          </div>
+
+          <div className="mt-3 rounded-lg border border-champagne bg-champagne/55 p-3">
+            <p className="text-xs font-black uppercase tracking-[0.12em] text-ink">Conseil visuel</p>
+            <p className="mt-1 text-sm leading-6 text-muted">{step.visualTip}</p>
+          </div>
+
           <button
             type="button"
             onClick={onUnderstood}
@@ -304,21 +337,25 @@ function StepCard({
 function CapsulePlaceholder({
   label,
   index,
-  status
+  status,
+  imageUrl
 }: {
   label: string;
   index: number;
   status: "good" | "warning";
+  imageUrl?: string;
 }) {
   const offset = index % 2 === 0 ? "rotate-0" : "rotate-2";
   const color = status === "good" ? "bg-sage" : "bg-rosewood";
 
   return (
     <div className="relative min-h-56 overflow-hidden rounded-lg bg-[linear-gradient(135deg,#fff5f7_0%,#f7dce5_55%,#e8d8cb_100%)] p-4">
+      {imageUrl ? <img src={imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-95" /> : null}
+      <div className="absolute inset-0 bg-white/10" />
       <div className="absolute right-4 top-4 rounded-full bg-white/85 px-3 py-1 text-xs font-black text-ink">
         Image placeholder
       </div>
-      <div className="flex h-full min-h-48 items-center justify-center">
+      <div className="relative flex h-full min-h-48 items-center justify-center">
         <div className="relative h-36 w-44">
           <div className="absolute bottom-0 left-4 h-28 w-20 rounded-t-[3rem] bg-white shadow-tight" />
           <div className={`absolute left-16 top-2 h-32 w-16 ${offset} rounded-t-[3rem] border-4 border-white ${color} shadow-tight`} />

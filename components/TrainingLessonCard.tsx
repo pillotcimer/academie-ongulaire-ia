@@ -4,8 +4,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, BadgeCheck, CheckCircle2, ClipboardCheck, Target, TriangleAlert } from "lucide-react";
 import type { CourseLesson } from "@/data/content";
+import { getLessonVisuals } from "@/data/lessonVisuals";
 import { getLessonMedia } from "@/data/mediaLibrary";
+import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { CapsulePosePremiumLesson } from "@/components/CapsulePosePremiumLesson";
+import { CommonMistakesGallery } from "@/components/CommonMistakesGallery";
+import { ExpectedResultGallery } from "@/components/ExpectedResultGallery";
 import { InteractiveChecklist } from "@/components/InteractiveChecklist";
 import { LessonCoachBlock } from "@/components/LessonCoachBlock";
 import { VideoLessonBlock } from "@/components/VideoLessonBlock";
@@ -29,6 +33,7 @@ function GenericTrainingLessonCard({ lesson, allLessonIds, nextLessonId }: Train
   const { isCompleted, completeLesson } = useLessonProgress(allLessonIds);
   const completed = isCompleted(lesson.id);
   const media = getLessonMedia(lesson.id);
+  const visuals = getLessonVisuals(lesson.id);
 
   return (
     <article id={`lesson-${lesson.id}`} className="scroll-mt-6 rounded-lg border border-rose-100 bg-white p-4 shadow-tight sm:p-5">
@@ -88,6 +93,14 @@ function GenericTrainingLessonCard({ lesson, allLessonIds, nextLessonId }: Train
           tone="neutral"
         />
       </div>
+
+      {visuals ? (
+        <div className="mt-5 space-y-5">
+          <BeforeAfterGallery items={visuals.beforeAfter} />
+          <CommonMistakesGallery mistakes={visuals.commonMistakes} />
+          <ExpectedResultGallery results={visuals.expectedResults} />
+        </div>
+      ) : null}
 
       <div className="mt-5">
         <InteractiveChecklist lessonId={lesson.id} items={lesson.checklist} />

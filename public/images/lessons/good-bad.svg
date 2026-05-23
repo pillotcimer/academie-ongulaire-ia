@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Comparaison bon mauvais exemple</title>
+  <desc id="desc">Placeholder visuel pour comparer un bon exemple et un mauvais exemple.</desc>
+  <rect width="960" height="540" fill="#fff5f7"/>
+  <rect x="72" y="92" width="376" height="356" rx="30" fill="#ffffff"/>
+  <rect x="512" y="92" width="376" height="356" rx="30" fill="#ffffff"/>
+  <circle cx="260" cy="216" r="70" fill="#7a9a87"/>
+  <path d="M226 218l28 28 62-76" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="700" cy="216" r="70" fill="#a94c67"/>
+  <path d="M664 180l72 72M736 180l-72 72" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
+  <text x="160" y="364" fill="#242124" font-family="Arial, sans-serif" font-size="42" font-weight="700">Bon</text>
+  <text x="596" y="364" fill="#242124" font-family="Arial, sans-serif" font-size="42" font-weight="700">À corriger</text>
+</svg>
