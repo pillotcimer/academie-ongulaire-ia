@@ -2,10 +2,14 @@ export type LessonMedia = {
   videoTitle: string;
   videoDescription: string;
   videoUrl: string;
-  videoSource: "Pexels" | "Pixabay" | "Mixkit" | "Coverr";
-  videoLicense: string;
+  source: "Pexels" | "Pixabay" | "Mixkit" | "Coverr" | "Local";
+  license: string;
   thumbnailUrl: string;
+  isEmbedded: boolean;
+  isLocal: boolean;
   searchKeywords: string[];
+  videoSource?: "Pexels" | "Pixabay" | "Mixkit" | "Coverr" | "Local";
+  videoLicense?: string;
 };
 
 export const authorizedVideoSources = ["Pexels", "Pixabay", "Mixkit", "Coverr"] as const;
@@ -18,7 +22,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/nail-technician-working-7424023/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/kit.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail technician", "manicure tools", "nail salon", "beauty workspace"]
   },
   "free-hygiene": {
@@ -28,7 +36,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/nail-technician-working-7424017/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/hygiene.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail technician", "hygiene", "manicure gloves", "clean nail station"]
   },
   "free-preparation": {
@@ -38,7 +50,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/manicure-filing-nails-16117150/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/preparation.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail preparation", "cuticle care", "nail buffing", "manicure filing"]
   },
   "premium-materiel-complet": {
@@ -48,7 +64,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://pixabay.com/videos/search/gel%20nails/",
     videoSource: "Pixabay",
     videoLicense: "Pixabay Content License - free to use, attribution not required",
+    source: "Pixabay",
+    license: "Pixabay Content License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/pro-kit.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["gel nails", "uv nail lamp", "nail tools", "manicure"]
   },
   "premium-anatomie": {
@@ -58,7 +78,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/person-showing-her-manicured-nails-4783779/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/anatomy.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["fingernails", "nail anatomy", "manicured nails", "nail care"]
   },
   "premium-preparation": {
@@ -68,7 +92,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/manicure-filing-nails-16117150/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/preparation.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail preparation", "cuticle care", "nail filing", "nail buffing"]
   },
   "premium-pose-capsule": {
@@ -78,7 +106,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/search/videos/nail%20extension/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/capsule.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail extension", "nail tips", "gel nails", "nail technician"]
   },
   "premium-application-gel": {
@@ -88,7 +120,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/video-of-person-applying-nail-polish-4802704/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/gel.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["gel manicure", "gel nails", "nail polish application", "nail technician"]
   },
   "premium-limage": {
@@ -98,7 +134,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/manicure-filing-nails-16117150/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/filing.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail filing", "manicure filing nails", "nail shape", "nail technician"]
   },
   "premium-finition": {
@@ -108,7 +148,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/colorful-manicured-nails-7338505/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/finish.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["manicured nails", "nail finish", "top coat", "colorful nails"]
   },
   "premium-erreurs-frequentes": {
@@ -118,7 +162,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://pixabay.com/videos/search/nails/",
     videoSource: "Pixabay",
     videoLicense: "Pixabay Content License - free to use, attribution not required",
+    source: "Pixabay",
+    license: "Pixabay Content License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/diagnostic.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nails", "manicure", "nail filing", "gel nails", "nail defects"]
   },
   "premium-entrainement-final": {
@@ -128,7 +176,11 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoUrl: "https://www.pexels.com/video/nail-technician-working-7424023/",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
+    source: "Pexels",
+    license: "Pexels License - free to use, attribution not required",
     thumbnailUrl: "/images/lesson-thumbnails/final-pose.svg",
+    isEmbedded: false,
+    isLocal: false,
     searchKeywords: ["nail technician", "manicure", "gel nails", "nail salon", "nail care"]
   }
 };

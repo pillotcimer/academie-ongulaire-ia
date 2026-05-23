@@ -89,6 +89,20 @@ export default function MaterialPage() {
               <p className="mt-4 text-2xl font-black text-ink">{product.price}</p>
               <p className="mt-1 text-sm font-semibold text-sage">{product.level}</p>
               <p className="mt-3 text-sm leading-6 text-muted">{product.note}</p>
+              <div className="mt-4 space-y-3">
+                <div className="rounded-lg bg-petal p-3">
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-rosewood">Rôle du matériel</p>
+                  <p className="mt-1 text-sm leading-6 text-muted">{product.role}</p>
+                </div>
+                <div className="rounded-lg border border-champagne bg-champagne/55 p-3">
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-ink">Erreur fréquente</p>
+                  <p className="mt-1 text-sm leading-6 text-muted">{product.commonError}</p>
+                </div>
+                <div className="rounded-lg bg-sage/10 p-3">
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-sage">Conseil d'achat</p>
+                  <p className="mt-1 text-sm leading-6 text-muted">{product.buyingAdvice}</p>
+                </div>
+              </div>
             </article>
           ))}
         </div>

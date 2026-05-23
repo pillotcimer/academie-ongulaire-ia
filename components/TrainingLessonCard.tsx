@@ -10,8 +10,11 @@ import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { CapsulePosePremiumLesson } from "@/components/CapsulePosePremiumLesson";
 import { CommonMistakesGallery } from "@/components/CommonMistakesGallery";
 import { ExpectedResultGallery } from "@/components/ExpectedResultGallery";
+import { GoodBadExampleGallery } from "@/components/GoodBadExampleGallery";
 import { InteractiveChecklist } from "@/components/InteractiveChecklist";
 import { LessonCoachBlock } from "@/components/LessonCoachBlock";
+import { LessonVisualGuidance } from "@/components/LessonVisualGuidance";
+import { StudentCaseStudy } from "@/components/StudentCaseStudy";
 import { VideoLessonBlock } from "@/components/VideoLessonBlock";
 import { useLessonProgress } from "@/components/useLessonProgress";
 
@@ -96,7 +99,10 @@ function GenericTrainingLessonCard({ lesson, allLessonIds, nextLessonId }: Train
 
       {visuals ? (
         <div className="mt-5 space-y-5">
+          <LessonVisualGuidance guidance={visuals.guidance} />
           <BeforeAfterGallery items={visuals.beforeAfter} />
+          <GoodBadExampleGallery examples={visuals.goodBadExamples} />
+          <StudentCaseStudy caseStudy={visuals.studentCase} />
           <CommonMistakesGallery mistakes={visuals.commonMistakes} />
           <ExpectedResultGallery results={visuals.expectedResults} />
         </div>

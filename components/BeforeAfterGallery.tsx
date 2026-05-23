@@ -13,8 +13,8 @@ export function BeforeAfterGallery({ items }: BeforeAfterGalleryProps) {
   return (
     <section className="rounded-lg border border-rose-100 bg-white p-4">
       <div>
-        <p className="text-sm font-black text-ink">Comparaison bon / mauvais exemple</p>
-        <p className="mt-1 text-sm leading-6 text-muted">Observe les différences avant de pratiquer.</p>
+        <p className="text-sm font-black text-ink">Avant / Après technique</p>
+        <p className="mt-1 text-sm leading-6 text-muted">Compare le mauvais résultat, le bon résultat et ce qui change vraiment.</p>
       </div>
 
       <div className="mt-4 space-y-4">
@@ -22,8 +22,12 @@ export function BeforeAfterGallery({ items }: BeforeAfterGalleryProps) {
           <article key={item.id} className="rounded-lg bg-petal p-3">
             <h4 className="text-sm font-black text-ink">{item.title}</h4>
             <div className="mt-3 grid gap-3 md:grid-cols-2">
-              <ExampleCard example={item.good} tone="good" />
               <ExampleCard example={item.bad} tone="bad" />
+              <ExampleCard example={item.good} tone="good" />
+            </div>
+            <div className="mt-3 rounded-lg bg-white p-3">
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-rosewood">Différence à retenir</p>
+              <p className="mt-1 text-sm leading-6 text-muted">{item.difference}</p>
             </div>
           </article>
         ))}

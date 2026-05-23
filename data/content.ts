@@ -1149,13 +1149,84 @@ export const materialCategories = [
 ];
 
 export const productCards = [
-  { category: "Lampe UV/LED", name: "Lampe LED 48W compacte", price: "25 € à 45 €", level: "Petit budget", note: "Suffisante pour débuter si elle catalyse bien tes gels." },
-  { category: "Ponceuse", name: "Ponceuse douce débutante", price: "35 € à 70 €", level: "Budget sérieux", note: "Prends un modèle réglable, pas trop agressif." },
-  { category: "Gels", name: "Gel construction clear 15 ml", price: "8 € à 18 €", level: "Petit budget", note: "Un gel transparent permet de s'entraîner sans multiplier les couleurs." },
-  { category: "Capsules", name: "Boîte capsules naturelles", price: "6 € à 12 €", level: "Petit budget", note: "Vérifie la variété des tailles avant achat." },
-  { category: "Limes", name: "Pack limes 100/180 + buffer", price: "5 € à 12 €", level: "Petit budget", note: "À changer régulièrement pour garder un travail propre." },
-  { category: "Pinceaux", name: "Pinceau gel taille 6", price: "6 € à 15 €", level: "Budget sérieux", note: "Un bon pinceau aide plus qu'un gros lot bas de gamme." },
-  { category: "Table", name: "Table compacte lavable", price: "50 € à 130 €", level: "Budget pro", note: "La stabilité compte plus que le style." },
-  { category: "Chaise", name: "Chaise réglable simple", price: "35 € à 90 €", level: "Budget pro", note: "Protège ton dos pendant les entraînements longs." },
-  { category: "Rangement", name: "Boîtes produits empilables", price: "10 € à 30 €", level: "Budget sérieux", note: "Pratique pour séparer propre, poussière et consommables." }
+  {
+    category: "Lampe UV/LED",
+    name: "Lampe LED 48W compacte",
+    price: "25 € à 45 €",
+    level: "Petit budget",
+    note: "Suffisante pour débuter si elle catalyse bien tes gels.",
+    role: "Catalyser le gel, la base et le top coat pour durcir la pose.",
+    commonError: "Acheter une lampe trop faible ou trop étroite, puis avoir une catalysation incomplète.",
+    buyingAdvice: "Choisis une lampe stable, assez large pour la main, avec minuterie 30/60/90 secondes."
+  },
+  {
+    category: "Capsules",
+    name: "Boîte capsules naturelles",
+    price: "6 € à 12 €",
+    level: "Petit budget",
+    note: "Vérifie la variété des tailles avant achat.",
+    role: "Créer une extension simple avant l'application du gel.",
+    commonError: "Prendre des capsules trop rigides ou avec trop peu de tailles.",
+    buyingAdvice: "Prends une boîte avec beaucoup de tailles, souple sans être molle, et un bord de collage propre."
+  },
+  {
+    category: "Gels",
+    name: "Gel construction clear 15 ml",
+    price: "8 € à 18 €",
+    level: "Petit budget",
+    note: "Un gel transparent permet de s'entraîner sans multiplier les couleurs.",
+    role: "Construire la solidité, placer l'apex et renforcer la capsule ou l'ongle naturel.",
+    commonError: "Acheter trop de couleurs avant de maîtriser le gel de construction.",
+    buyingAdvice: "Commence avec un clear et un cover naturel compatibles avec ta lampe."
+  },
+  {
+    category: "Pinceaux",
+    name: "Pinceau gel taille 6",
+    price: "6 € à 15 €",
+    level: "Budget sérieux",
+    note: "Un bon pinceau aide plus qu'un gros lot bas de gamme.",
+    role: "Déplacer le gel précisément sans toucher les cuticules.",
+    commonError: "Utiliser un pinceau trop gros ou qui perd ses poils.",
+    buyingAdvice: "Prends un pinceau gel moyen, souple mais précis, facile à nettoyer."
+  },
+  {
+    category: "Limes",
+    name: "Pack limes 100/180 + buffer",
+    price: "5 € à 12 €",
+    level: "Petit budget",
+    note: "À changer régulièrement pour garder un travail propre.",
+    role: "Préparer, corriger la forme, affiner le bord libre et lisser la surface.",
+    commonError: "Utiliser une lime trop agressive sur l'ongle naturel.",
+    buyingAdvice: "Garde du 180 pour l'ongle naturel et du 100/180 pour la capsule ou la construction."
+  },
+  {
+    category: "Ponceuse",
+    name: "Ponceuse douce débutante",
+    price: "35 € à 70 €",
+    level: "Budget sérieux",
+    note: "Prends un modèle réglable, pas trop agressif.",
+    role: "Gagner du temps sur la dépose, les contours et certaines finitions.",
+    commonError: "Monter trop vite en vitesse et creuser l'ongle naturel.",
+    buyingAdvice: "Choisis un modèle réglable, léger, avec embouts doux pour débuter."
+  },
+  {
+    category: "Cleaner",
+    name: "Cleaner + cotons non pelucheux",
+    price: "5 € à 12 €",
+    level: "Petit budget",
+    note: "Indispensable pour nettoyer sans laisser de fibres.",
+    role: "Nettoyer la surface, retirer certains résidus et garder un travail propre.",
+    commonError: "Utiliser du coton classique qui laisse des fibres dans le gel.",
+    buyingAdvice: "Prends des cotons non pelucheux et garde le cleaner fermé entre deux utilisations."
+  },
+  {
+    category: "Primer",
+    name: "Primer ou ultrabond",
+    price: "6 € à 15 €",
+    level: "Petit budget",
+    note: "Aide l'adhérence selon le protocole de ta marque.",
+    role: "Améliorer l'adhérence sur l'ongle préparé avant la base.",
+    commonError: "En mettre trop ou toucher la peau autour de l'ongle.",
+    buyingAdvice: "Choisis un primer compatible avec ta base et applique une quantité très fine."
+  }
 ];
