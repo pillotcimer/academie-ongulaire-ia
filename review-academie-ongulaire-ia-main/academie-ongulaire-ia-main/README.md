@@ -1,6 +1,6 @@
 # OngleMentor AI
 
-Application web responsive mobile-first pour une formation de prothésie ongulaire avec parcours gratuit, formation débutante premium en mode test, matériel recommandé, tableau de bord, progression locale et coach IA photo en mode démo.
+Application web responsive mobile-first pour une formation de prothésie ongulaire avec parcours de cours, matériel recommandé, tableau de bord, progression et coach IA photo simulé.
 
 ## Lancer en local
 
@@ -24,14 +24,8 @@ Puis ouvrir `http://localhost:3000`.
 - Tarifs : `/tarifs`
 - Connexion / inscription : `/connexion`
 
-## Parcours inclus
-
-- Formation gratuite : matériel de base, hygiène, préparation de l'ongle, exercice pratique et analyse IA gratuite en mode démo.
-- Débutant 49 € : parcours premium accessible en mode test sans paiement réel.
-- Progression locale : les leçons terminées sont sauvegardées dans `localStorage`.
-
 ## Prévu pour la suite
 
 - Brancher Supabase pour les comptes élèves, les progressions et les photos.
-- Remplacer le mode démo par une vraie API IA.
+- Remplacer l'analyse simulée par une vraie API IA.
 - Ajouter Stripe ou une autre solution de paiement.

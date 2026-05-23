@@ -7,11 +7,11 @@ export default function LoginPage() {
       <div>
         <SectionHeading
           eyebrow="Compte élève"
-          title="Connexion et inscription"
-          text="Cet espace servira à retrouver la progression, les analyses IA et les accès de formation."
+          title="Connexion et inscription prêtes pour la suite"
+          text="La page est déjà dessinée pour une future connexion Supabase. Pour l'instant, le formulaire sert à valider l'expérience."
         />
         <div className="mt-6 rounded-lg border border-rose-100 bg-white p-5 shadow-tight">
-          <h2 className="text-lg font-bold text-ink">Ce que le compte élève regroupe</h2>
+          <h2 className="text-lg font-bold text-ink">Ce qui sera branché plus tard</h2>
           <ul className="mt-4 space-y-3 text-sm leading-6 text-muted">
             <li>Création de compte élève</li>
             <li>Connexion sécurisée</li>

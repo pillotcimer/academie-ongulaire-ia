@@ -62,7 +62,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Programme"
-          title="Une formation structurée, pensée pour apprendre sans se perdre"
+          title="Une première version complète, pensée pour apprendre sans se perdre"
           text="Le parcours rassemble les cours, la pratique, le matériel, les corrections photo et le suivi."
         />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -93,7 +93,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="Avis" title="Ce que l'expérience doit apporter aux élèves" />
+        <SectionHeading eyebrow="Avis" title="Témoignages fictifs pour présenter l'expérience" />
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {testimonials.map((testimonial) => (
             <article key={testimonial.name} className="rounded-lg border border-rose-100 bg-white p-5 shadow-tight">

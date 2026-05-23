@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertCircle, Camera, CheckCircle2, ClipboardCheck, Loader2, Upload, XCircle } from "lucide-react";
+import { Camera, CheckCircle2, ClipboardCheck, Loader2, Upload, XCircle } from "lucide-react";
 import { analysisByExercise, exerciseOptions } from "@/data/content";
 
 export function CoachAnalyzer() {
@@ -9,7 +9,6 @@ export function CoachAnalyzer() {
   const [preview, setPreview] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [hasResult, setHasResult] = useState(false);
-  const [message, setMessage] = useState("Ajoute une photo pour lancer une analyse de démonstration.");
 
   const analysis = useMemo(() => analysisByExercise[selectedExercise], [selectedExercise]);
 
@@ -22,24 +21,16 @@ export function CoachAnalyzer() {
     const imageUrl = URL.createObjectURL(file);
     setPreview(imageUrl);
     setHasResult(false);
-    setMessage("Photo ajoutée. Tu peux lancer l'analyse en mode démo.");
   }
 
   function handleAnalyze() {
-    if (!preview) {
-      setMessage("Ajoute d'abord une photo de ton exercice.");
-      return;
-    }
-
     setIsAnalyzing(true);
     setHasResult(false);
-    setMessage("Analyse en cours : vérification de la forme, de l'épaisseur et des zones à corriger.");
 
     window.setTimeout(() => {
       setIsAnalyzing(false);
       setHasResult(true);
-      setMessage("Analyse démo prête. La vraie IA pourra être branchée ensuite.");
-    }, 1200);
+    }, 900);
   }
 
   return (
@@ -55,16 +46,6 @@ export function CoachAnalyzer() {
           </div>
         </div>
 
-        <div className="mt-5 flex items-start gap-3 rounded-lg border border-champagne bg-champagne/60 p-4">
-          <AlertCircle className="mt-1 shrink-0 text-ink" size={18} aria-hidden="true" />
-          <div>
-            <p className="text-sm font-bold text-ink">Mode démo</p>
-            <p className="mt-1 text-sm leading-6 text-muted">
-              L'analyse affichée est simulée tant que la vraie API IA n'est pas connectée.
-            </p>
-          </div>
-        </div>
-
         <label className="mt-6 block text-sm font-bold text-ink" htmlFor="exercise">
           Exercice
         </label>
@@ -74,7 +55,6 @@ export function CoachAnalyzer() {
           onChange={(event) => {
             setSelectedExercise(event.target.value);
             setHasResult(false);
-            setMessage(preview ? "Exercice changé. Relance l'analyse pour obtenir le nouveau retour." : "Ajoute une photo pour lancer une analyse de démonstration.");
           }}
           className="focus-ring mt-2 w-full rounded-lg border border-rose-100 bg-petal px-4 py-3 text-sm font-semibold text-ink"
         >
@@ -111,8 +91,6 @@ export function CoachAnalyzer() {
           {isAnalyzing ? <Loader2 className="animate-spin" size={18} aria-hidden="true" /> : <ClipboardCheck size={18} aria-hidden="true" />}
           Analyser mon travail
         </button>
-
-        <p className="mt-3 rounded-lg bg-petal px-4 py-3 text-sm leading-6 text-muted">{message}</p>
       </section>
 
       <section className="rounded-lg border border-rose-100 bg-white p-5 shadow-soft">
@@ -122,18 +100,12 @@ export function CoachAnalyzer() {
             <h2 className="mt-2 text-2xl font-black text-ink">{hasResult ? `${analysis.score}/100` : "En attente"}</h2>
           </div>
           <span className="rounded-full bg-petal px-3 py-1 text-xs font-bold text-rosewood">
-            {hasResult ? "Analyse démo prête" : "Mode démo"}
+            {hasResult ? "Analyse prête" : "Aperçu IA"}
           </span>
         </div>
 
         {hasResult ? (
           <div className="mt-6 space-y-5">
-            <div className="rounded-lg border border-champagne bg-champagne/60 p-4">
-              <p className="text-sm font-bold text-ink">Lecture simulée de la photo</p>
-              <p className="mt-2 text-sm leading-6 text-muted">
-                Exercice analysé : <span className="font-bold text-ink">{selectedExercise}</span>. La réponse ci-dessous imite le type de retour que donnera la vraie IA.
-              </p>
-            </div>
             <ResultBlock title="Points réussis" icon={CheckCircle2} items={analysis.strengths} tone="success" />
             <ResultBlock title="Erreurs détectées" icon={XCircle} items={analysis.mistakes} tone="warning" />
             <ResultBlock title="Conseils de correction" icon={ClipboardCheck} items={analysis.advice} tone="neutral" />

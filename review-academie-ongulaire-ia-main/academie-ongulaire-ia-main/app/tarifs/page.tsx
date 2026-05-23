@@ -4,18 +4,12 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { pricingPlans } from "@/data/content";
 
 export default function PricingPage() {
-  const hrefByPlan: Record<string, string> = {
-    "Découverte gratuite": "/formation#formation-gratuite",
-    "Débutant complet": "/modules/debutant",
-    Intermédiaire: "/modules/intermediaire"
-  };
-
   return (
     <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Tarifs"
         title="Trois offres simples pour tester, apprendre ou progresser avec l'IA"
-        text="Le paiement réel n'est pas encore activé. Les boutons ouvrent les parcours en mode test pour valider la formation avant Stripe."
+        text="Ces tarifs sont prêts pour une V1. Le paiement réel pourra être ajouté plus tard avec Stripe ou une autre solution."
       />
 
       <div className="mt-8 grid gap-4 lg:grid-cols-3">
@@ -42,8 +36,8 @@ export default function PricingPage() {
               ))}
             </ul>
             <div className="mt-6">
-              <ActionLink href={hrefByPlan[plan.title] ?? "/formation"} variant={plan.highlighted ? "secondary" : "primary"}>
-                {plan.price === "0 €" ? "Commencer gratuitement" : "Accéder en mode test"}
+              <ActionLink href="/connexion" variant={plan.highlighted ? "secondary" : "primary"}>
+                Choisir cette offre
               </ActionLink>
             </div>
           </article>

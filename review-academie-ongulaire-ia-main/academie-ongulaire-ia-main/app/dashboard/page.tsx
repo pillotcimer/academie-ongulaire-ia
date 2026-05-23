@@ -1,7 +1,7 @@
 import { ArrowRight, Camera, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { ActionLink } from "@/components/ActionLink";
-import { DashboardProgressCard } from "@/components/DashboardProgressCard";
+import { ProgressRing } from "@/components/ProgressRing";
 import { SectionHeading } from "@/components/SectionHeading";
 import { StatCard } from "@/components/StatCard";
 import { dashboardStats, recentExercises } from "@/data/content";
@@ -26,7 +26,9 @@ export default function DashboardPage() {
       </div>
 
       <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_1.3fr]">
-        <DashboardProgressCard />
+        <article className="rounded-lg border border-rose-100 bg-white p-5 shadow-soft">
+          <ProgressRing value={42} label="Progression globale" />
+        </article>
         <div className="grid gap-4 sm:grid-cols-3">
           {dashboardStats.map((stat) => (
             <StatCard key={stat.label} label={stat.label} value={stat.value} detail={stat.detail} />

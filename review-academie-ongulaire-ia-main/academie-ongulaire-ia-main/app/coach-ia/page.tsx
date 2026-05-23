@@ -7,7 +7,7 @@ export default function CoachPage() {
       <SectionHeading
         eyebrow="Coach IA photo"
         title="Analyse ton exercice et récupère une correction claire"
-        text="Choisis l'exercice, ajoute une photo, puis obtiens un retour structuré en mode démo : score, réussites, erreurs et prochaine étape."
+        text="La V1 prépare déjà le parcours pour brancher plus tard une vraie API IA. Aujourd'hui, l'analyse simulée permet de tester l'expérience complète."
       />
       <div className="mt-8">
         <CoachAnalyzer />
