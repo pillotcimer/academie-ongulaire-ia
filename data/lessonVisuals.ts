@@ -71,12 +71,12 @@ const preparationVisuals: LessonVisualSet = {
       id: "prep-matte",
       title: "Surface mate vs surface brillante",
       good: {
-        title: "Bon exemple",
+        title: "Correct",
         description: "La plaque est matifiée partout, y compris près des côtés et des cuticules.",
         imageUrl: "/images/lessons/preparation.svg"
       },
       bad: {
-        title: "Mauvais exemple",
+        title: "À éviter",
         description: "Le centre est mat, mais les côtés restent brillants : la tenue sera fragile.",
         imageUrl: "/images/lessons/good-bad.svg"
       },
@@ -146,12 +146,12 @@ export const lessonVisualsByLessonId: Record<string, LessonVisualSet> = {
         id: "capsule-size",
         title: "Capsule adaptée vs capsule forcée",
         good: {
-          title: "Bon exemple",
+          title: "Correct",
           description: "La capsule couvre les côtés sans pression et suit naturellement le doigt.",
           imageUrl: "/images/lessons/capsule.svg"
         },
         bad: {
-          title: "Mauvais exemple",
+          title: "À éviter",
           description: "La capsule est trop petite, force sur les côtés ou laisse un espace visible.",
           imageUrl: "/images/lessons/good-bad.svg"
         },
@@ -161,12 +161,12 @@ export const lessonVisualsByLessonId: Record<string, LessonVisualSet> = {
         id: "capsule-axis",
         title: "Axe droit vs axe décalé",
         good: {
-          title: "Bon exemple",
+          title: "Correct",
           description: "Le bord libre prolonge la ligne du doigt.",
           imageUrl: "/images/lessons/capsule.svg"
         },
         bad: {
-          title: "Mauvais exemple",
+          title: "À éviter",
           description: "La capsule part vers un côté et la forme sera difficile à rattraper.",
           imageUrl: "/images/lessons/good-bad.svg"
         },
@@ -232,12 +232,12 @@ export const lessonVisualsByLessonId: Record<string, LessonVisualSet> = {
         id: "gel-apex",
         title: "Apex équilibré vs pose plate",
         good: {
-          title: "Bon exemple",
+          title: "Correct",
           description: "La matière renforce la zone de stress et reste fine sur les côtés.",
           imageUrl: "/images/lessons/gel.svg"
         },
         bad: {
-          title: "Mauvais exemple",
+          title: "À éviter",
           description: "La même épaisseur partout donne une pose plate ou lourde.",
           imageUrl: "/images/lessons/good-bad.svg"
         },
@@ -303,12 +303,12 @@ export const lessonVisualsByLessonId: Record<string, LessonVisualSet> = {
         id: "filing-symmetry",
         title: "Forme régulière vs asymétrie",
         good: {
-          title: "Bon exemple",
+          title: "Correct",
           description: "Les deux côtés sont équilibrés et le bord libre est net.",
           imageUrl: "/images/lessons/filing.svg"
         },
         bad: {
-          title: "Mauvais exemple",
+          title: "À éviter",
           description: "Un côté est plus creusé ou plus épais que l'autre.",
           imageUrl: "/images/lessons/good-bad.svg"
         },
@@ -374,12 +374,12 @@ export const lessonVisualsByLessonId: Record<string, LessonVisualSet> = {
         id: "finish-shine",
         title: "Brillance fine vs surcharge",
         good: {
-          title: "Bon exemple",
+          title: "Correct",
           description: "Le top coat est fin, régulier et scelle le bord libre.",
           imageUrl: "/images/lessons/finish.svg"
         },
         bad: {
-          title: "Mauvais exemple",
+          title: "À éviter",
           description: "Trop de top crée un bourrelet près des côtés ou des cuticules.",
           imageUrl: "/images/lessons/good-bad.svg"
         },

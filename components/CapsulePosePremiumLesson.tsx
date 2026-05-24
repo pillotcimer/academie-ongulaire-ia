@@ -294,8 +294,8 @@ function StepCard({
                 </p>
                 <p className="mt-2 text-sm leading-6 text-muted">{step.commonError}</p>
               </div>
-              <div className="rounded-lg bg-sage/10 p-3">
-                <p className="flex items-center gap-2 text-sm font-bold text-sage">
+              <div className="rounded-lg bg-white p-3">
+                <p className="flex items-center gap-2 text-sm font-bold text-ink">
                   <BadgeCheck size={15} aria-hidden="true" />
                   Correction
                 </p>
@@ -305,12 +305,12 @@ function StepCard({
           </div>
 
           <div className="mt-4 grid gap-3 md:grid-cols-3">
-            <div className="rounded-lg bg-sage/10 p-3">
-              <p className="text-sm font-bold text-sage">Bon exemple</p>
+            <div className="rounded-lg bg-white p-3">
+              <p className="text-sm font-bold text-ink">Correct</p>
               <p className="mt-1 text-sm leading-6 text-muted">{step.goodExample}</p>
             </div>
             <div className="rounded-lg bg-petal p-3">
-              <p className="text-sm font-bold text-rosewood">Mauvais exemple</p>
+              <p className="text-sm font-bold text-rosewood">À éviter</p>
               <p className="mt-1 text-sm leading-6 text-muted">{step.badExample}</p>
             </div>
             <div className="rounded-lg border border-rose-100 bg-white p-3">
