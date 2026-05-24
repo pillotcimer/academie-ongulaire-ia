@@ -22,17 +22,17 @@ export function CommonMistakesGallery({ mistakes }: CommonMistakesGalleryProps) 
           <article key={mistake.id} className="overflow-hidden rounded-lg border border-rose-100 bg-white">
             <div className="relative aspect-video bg-white">
               <img src={mistake.imageUrl} alt="" className="h-full w-full object-cover" />
-              <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-rosewood">
+              <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-ink">
                 <TriangleAlert size={14} aria-hidden="true" />
-                Erreur
+                À éviter
               </span>
             </div>
             <div className="p-3">
               <h4 className="text-sm font-black text-ink">{mistake.name}</h4>
               <p className="mt-2 text-xs font-black uppercase tracking-[0.12em] text-muted">Conséquence</p>
               <p className="mt-1 text-sm leading-6 text-muted">{mistake.consequence}</p>
-              <div className="mt-3 rounded-lg bg-sage/10 p-3">
-                <p className="flex items-center gap-2 text-sm font-bold text-sage">
+              <div className="mt-3 rounded-lg bg-petal p-3">
+                <p className="flex items-center gap-2 text-sm font-bold text-ink">
                   <RotateCcw size={15} aria-hidden="true" />
                   Comment corriger
                 </p>

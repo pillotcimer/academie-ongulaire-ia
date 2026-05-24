@@ -1,38 +1,29 @@
+import { Camera, Sparkles } from "lucide-react";
 import { ActionLink } from "@/components/ActionLink";
 import { SectionHeading } from "@/components/SectionHeading";
-import { TrainingLessonCard } from "@/components/TrainingLessonCard";
-import { allTrainingLessons, beginnerPremiumLessons } from "@/data/content";
-import { Camera, Sparkles } from "lucide-react";
+import { TrainingCategoryDashboard } from "@/components/TrainingCategoryDashboard";
 
 export default function BeginnerModulePage() {
-  const allLessonIds = allTrainingLessons.map((lesson) => lesson.id);
-
   return (
     <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
           eyebrow="Débutant 49 €"
-          title="Formation complète débutante en mode test"
-          text="Le parcours premium est ouvert pour tester l'expérience sans paiement réel : matériel, anatomie, préparation, capsule, gel, limage, finition et entraînement final."
+          title="Formation débutante en catégories claires"
+          text="Le parcours premium reste ouvert en mode test. Au lieu d’une longue page, tu choisis le thème à travailler puis tu démarres une leçon courte."
         />
         <div className="flex flex-col gap-3 sm:flex-row">
-          <ActionLink href="/formation#debutant-49" icon={Sparkles} variant="secondary">
-            Voir l'offre
+          <ActionLink href="/formation" icon={Sparkles} variant="secondary">
+            Voir les catégories
           </ActionLink>
           <ActionLink href="/coach-ia" icon={Camera} variant="light">
             Corriger un exercice
           </ActionLink>
         </div>
       </div>
-      <div className="mt-8 space-y-4">
-        {beginnerPremiumLessons.map((lesson, index) => (
-          <TrainingLessonCard
-            key={lesson.id}
-            lesson={lesson}
-            allLessonIds={allLessonIds}
-            nextLessonId={beginnerPremiumLessons[index + 1]?.id}
-          />
-        ))}
+
+      <div className="mt-8">
+        <TrainingCategoryDashboard />
       </div>
     </section>
   );

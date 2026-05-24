@@ -5,7 +5,7 @@ import { pricingPlans } from "@/data/content";
 
 export default function PricingPage() {
   const hrefByPlan: Record<string, string> = {
-    "Découverte gratuite": "/formation#formation-gratuite",
+    "Découverte gratuite": "/formation/materiel-poste",
     "Débutant complet": "/modules/debutant",
     Intermédiaire: "/modules/intermediaire"
   };

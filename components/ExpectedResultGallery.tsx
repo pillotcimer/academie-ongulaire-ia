@@ -12,10 +12,8 @@ export function ExpectedResultGallery({ results }: ExpectedResultGalleryProps) {
 
   return (
     <section className="rounded-lg border border-rose-100 bg-white p-4">
-      <div>
-        <p className="text-sm font-black text-ink">Résultat attendu</p>
-        <p className="mt-1 text-sm leading-6 text-muted">Le rendu que tu dois chercher avant de valider l'exercice.</p>
-      </div>
+      <p className="text-sm font-black text-ink">Résultat attendu</p>
+      <p className="mt-1 text-sm leading-6 text-muted">Le rendu que tu dois chercher avant de valider l'exercice.</p>
 
       <div className="mt-4 grid gap-3 lg:grid-cols-2">
         {results.map((result) => (
@@ -33,16 +31,16 @@ export function ExpectedResultGallery({ results }: ExpectedResultGalleryProps) {
 
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-lg bg-white p-3">
-                  <p className="flex items-center gap-2 text-sm font-bold text-sage">
+                  <p className="flex items-center gap-2 text-sm font-bold text-ink">
                     <CheckCircle2 size={15} aria-hidden="true" />
-                    Exemple correct
+                    Correct
                   </p>
                   <p className="mt-1 text-sm leading-6 text-muted">{result.correctExample}</p>
                 </div>
                 <div className="rounded-lg bg-white p-3">
                   <p className="flex items-center gap-2 text-sm font-bold text-rosewood">
                     <XCircle size={15} aria-hidden="true" />
-                    Exemple à éviter
+                    À éviter
                   </p>
                   <p className="mt-1 text-sm leading-6 text-muted">{result.avoidExample}</p>
                 </div>
