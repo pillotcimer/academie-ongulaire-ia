@@ -48,15 +48,21 @@ export function TrainingCategoryDashboard() {
         const displayLevel = category.level === "Débutant premium" ? "Premium" : category.level;
 
         return (
-          <article key={category.slug} className="rounded-lg border border-rose-100 bg-white p-4 shadow-tight">
-            <div className="flex items-center gap-3">
+          <article key={category.slug} className="overflow-hidden rounded-lg border border-rose-100 bg-white shadow-tight transition hover:-translate-y-0.5 hover:shadow-soft">
+            <div className="relative aspect-[16/8] bg-petal">
+              <img src={category.coverImageUrl} alt="" className="h-full w-full object-cover" />
+              <span className="absolute left-3 top-3 rounded-full bg-white/92 px-3 py-1 text-[11px] font-black text-rosewood">{status}</span>
+            </div>
+
+            <div className="p-3 sm:p-4">
+              <div className="flex items-center gap-3">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-petal text-rosewood">
                 <Icon size={22} aria-hidden="true" />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="text-lg font-black leading-tight text-ink">{category.title}</h3>
-                  <span className="shrink-0 rounded-full bg-petal px-2.5 py-1 text-[11px] font-black text-rosewood">{status}</span>
+                  {progress >= 100 ? <span className="shrink-0 rounded-full bg-sage/10 px-2.5 py-1 text-[11px] font-black text-sage">Réussi</span> : null}
                 </div>
                 <p className="mt-1 text-sm leading-5 text-muted">{category.description}</p>
               </div>
@@ -86,6 +92,7 @@ export function TrainingCategoryDashboard() {
             >
               Commencer
             </Link>
+            </div>
           </article>
         );
       })}

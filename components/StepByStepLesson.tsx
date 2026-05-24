@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -23,6 +23,7 @@ import { useLessonProgress } from "@/components/useLessonProgress";
 import type { CourseLesson } from "@/data/content";
 import { getLessonMedia } from "@/data/mediaLibrary";
 import { getLessonVisuals } from "@/data/lessonVisuals";
+import type { BeforeAfterComparison } from "@/data/lessonVisuals";
 import type { TrainingCategory, VisualManualCard } from "@/data/trainingCategories";
 
 type StepByStepLessonProps = {
@@ -88,7 +89,7 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
         title: "Schéma / image",
         shortTitle: "Visuel",
         icon: ImageIcon,
-        content: <VisualStep card={manualCard} guidance={visuals?.guidance} />
+        content: <VisualStep card={manualCard} guidance={visuals?.guidance} beforeAfter={visuals?.beforeAfter ?? []} />
       },
       {
         title: "Checklist",
@@ -144,7 +145,12 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
 
           <div className="mt-4">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-rosewood">{category.title}</p>
-            <h1 className="mt-2 text-2xl font-black leading-tight text-ink sm:text-4xl">{lesson.title}</h1>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <h1 className="text-2xl font-black leading-tight text-ink sm:text-4xl">{lesson.title}</h1>
+              {completed ? (
+                <span className="rounded-full bg-sage/10 px-3 py-1 text-xs font-black text-sage">Leçon terminée</span>
+              ) : null}
+            </div>
           </div>
 
           <div className="mt-4 rounded-lg border border-rose-100 bg-petal p-3">
@@ -233,7 +239,15 @@ function ExplanationStep({ lesson }: { lesson: CourseLesson }) {
   );
 }
 
-function VisualStep({ card, guidance }: { card: VisualManualCard; guidance?: { whatToSee: string[]; whatToAvoid: string[] } }) {
+function VisualStep({
+  card,
+  guidance,
+  beforeAfter
+}: {
+  card: VisualManualCard;
+  guidance?: { whatToSee: string[]; whatToAvoid: string[] };
+  beforeAfter: BeforeAfterComparison[];
+}) {
   return (
     <div>
       <div className="overflow-hidden rounded-lg border border-rose-100 bg-petal">
@@ -254,12 +268,49 @@ function VisualStep({ card, guidance }: { card: VisualManualCard; guidance?: { w
         </div>
       </div>
 
+      <BeforeAfterMiniGallery items={beforeAfter} />
+
       {guidance ? (
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <CompactList title="À voir" items={guidance.whatToSee} icon={Eye} />
           <CompactList title="À éviter" items={guidance.whatToAvoid} icon={RotateCcw} />
         </div>
       ) : null}
+    </div>
+  );
+}
+
+function BeforeAfterMiniGallery({ items }: { items: BeforeAfterComparison[] }) {
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="mt-4 rounded-lg border border-rose-100 bg-white p-3">
+      <p className="text-sm font-black text-ink">Avant / après</p>
+      <div className="mt-3 grid gap-3 lg:grid-cols-2">
+        {items.slice(0, 2).map((item) => (
+          <article key={item.id} className="overflow-hidden rounded-lg bg-petal">
+            <div className="grid grid-cols-2 gap-0">
+              <BeforeAfterSide imageUrl={item.bad.imageUrl} label="À éviter" title={item.bad.title} />
+              <BeforeAfterSide imageUrl={item.good.imageUrl} label="Correct" title={item.good.title} />
+            </div>
+            <p className="p-3 text-sm leading-6 text-muted">{item.difference}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BeforeAfterSide({ imageUrl, label, title }: { imageUrl: string; label: string; title: string }) {
+  return (
+    <div className="bg-white">
+      <div className="relative aspect-video">
+        <img src={imageUrl} alt="" className="h-full w-full object-cover" />
+        <span className="absolute left-2 top-2 rounded-full bg-white/92 px-2 py-1 text-[10px] font-black text-ink">{label}</span>
+      </div>
+      <p className="p-2 text-xs font-bold leading-5 text-ink">{title}</p>
     </div>
   );
 }
@@ -303,6 +354,13 @@ function ValidationStep({
   nextLessonTitle?: string;
   onComplete: () => void;
 }) {
+  const [justValidated, setJustValidated] = useState(false);
+
+  function handleComplete() {
+    setJustValidated(true);
+    onComplete();
+  }
+
   return (
     <div className="text-center">
       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-petal text-rosewood">
@@ -318,10 +376,25 @@ function ValidationStep({
         <p className="mt-2 text-sm leading-6 text-muted">{lesson.expectedResult}</p>
       </div>
 
+      {justValidated || completed ? (
+        <div
+          className={[
+            "mx-auto mt-4 max-w-xl rounded-lg border border-sage/30 bg-sage/10 p-4 text-left",
+            justValidated ? "lesson-success-pop" : ""
+          ].join(" ")}
+        >
+          <p className="flex items-center gap-2 text-sm font-black text-sage">
+            <CheckCircle2 size={17} aria-hidden="true" />
+            Leçon terminée
+          </p>
+          <p className="mt-1 text-sm leading-6 text-muted">Bravo, cette étape est enregistrée dans ta progression.</p>
+        </div>
+      ) : null}
+
       <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
         <button
           type="button"
-          onClick={onComplete}
+          onClick={handleComplete}
           className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-tight transition hover:bg-rosewood"
         >
           <CheckCircle2 size={18} aria-hidden="true" />

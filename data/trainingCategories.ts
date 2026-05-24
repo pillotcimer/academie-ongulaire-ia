@@ -11,6 +11,7 @@ export type TrainingCategory = {
   level: "Gratuit" | "Débutant premium";
   estimatedDuration: string;
   iconName: CategoryIconName;
+  coverImageUrl: string;
   lessonIds: string[];
   manualCards: VisualManualCard[];
 };
@@ -33,6 +34,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Gratuit",
     estimatedDuration: "1 h 05",
     iconName: "briefcase",
+    coverImageUrl: "/images/lesson-thumbnails/kit.svg",
     lessonIds: ["free-materiel-base", "premium-materiel-complet"],
     manualCards: [
       {
@@ -53,6 +55,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Gratuit",
     estimatedDuration: "1 h 50",
     iconName: "hand",
+    coverImageUrl: "/images/lesson-thumbnails/preparation.svg",
     lessonIds: ["free-hygiene", "free-preparation", "premium-preparation"],
     manualCards: [
       {
@@ -81,6 +84,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Débutant premium",
     estimatedDuration: "1 h 15",
     iconName: "badge",
+    coverImageUrl: "/images/lesson-thumbnails/capsule.svg",
     lessonIds: ["premium-pose-capsule"],
     manualCards: [
       {
@@ -101,6 +105,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Débutant premium",
     estimatedDuration: "55 min",
     iconName: "sparkles",
+    coverImageUrl: "/images/lesson-thumbnails/gel.svg",
     lessonIds: ["premium-application-gel"],
     manualCards: [
       {
@@ -121,6 +126,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Débutant premium",
     estimatedDuration: "45 min",
     iconName: "ruler",
+    coverImageUrl: "/images/lesson-thumbnails/filing.svg",
     lessonIds: ["premium-limage"],
     manualCards: [
       {
@@ -141,6 +147,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Débutant premium",
     estimatedDuration: "30 min",
     iconName: "gem",
+    coverImageUrl: "/images/lesson-thumbnails/finish.svg",
     lessonIds: ["premium-finition"],
     manualCards: [
       {
@@ -161,6 +168,7 @@ export const trainingCategories: TrainingCategory[] = [
     level: "Débutant premium",
     estimatedDuration: "1 h 50",
     iconName: "trophy",
+    coverImageUrl: "/images/lesson-thumbnails/final-pose.svg",
     lessonIds: ["premium-erreurs-frequentes", "premium-entrainement-final"],
     manualCards: [
       {
