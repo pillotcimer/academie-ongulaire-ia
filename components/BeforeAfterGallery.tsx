@@ -1,4 +1,4 @@
-import { HelpCircle, RotateCcw } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import type { BeforeAfterComparison, VisualExample } from "@/data/lessonVisuals";
 
 type BeforeAfterGalleryProps = {
@@ -13,7 +13,7 @@ export function BeforeAfterGallery({ items }: BeforeAfterGalleryProps) {
   return (
     <section className="rounded-lg border border-rose-100 bg-white p-4">
       <p className="text-sm font-black text-ink">Comparaisons rapides</p>
-      <p className="mt-1 text-sm leading-6 text-muted">Une version plus légère : correct, à éviter, pourquoi, comment corriger.</p>
+      <p className="mt-1 text-sm leading-6 text-muted">Compact : correct, à éviter, astuce pro.</p>
 
       <div className="mt-4 grid gap-3 lg:grid-cols-2">
         {items.map((item) => (
@@ -23,9 +23,14 @@ export function BeforeAfterGallery({ items }: BeforeAfterGalleryProps) {
               <ExampleCard example={item.good} label="Correct" />
               <ExampleCard example={item.bad} label="À éviter" />
             </div>
-            <div className="grid gap-3 p-3 sm:grid-cols-2">
-              <MiniCard title="Pourquoi" text={item.difference} icon="why" />
-              <MiniCard title="Comment corriger" text="Reviens au repère correct, corrige un seul défaut, puis contrôle avant de passer à l’étape suivante." icon="fix" />
+            <div className="p-3">
+              <div className="rounded-lg bg-white p-3">
+                <p className="flex items-center gap-2 text-sm font-black text-rosewood">
+                  <Lightbulb size={15} aria-hidden="true" />
+                  Astuce pro
+                </p>
+                <p className="mt-1 text-sm leading-6 text-muted">{item.difference}</p>
+              </div>
             </div>
           </article>
         ))}
@@ -45,20 +50,6 @@ function ExampleCard({ example, label }: { example: VisualExample; label: string
         <p className="text-sm font-black text-ink">{example.title}</p>
         <p className="mt-1 text-sm leading-6 text-muted">{example.description}</p>
       </div>
-    </div>
-  );
-}
-
-function MiniCard({ title, text, icon }: { title: string; text: string; icon: "why" | "fix" }) {
-  const Icon = icon === "why" ? HelpCircle : RotateCcw;
-
-  return (
-    <div className="rounded-lg bg-white p-3">
-      <p className="flex items-center gap-2 text-sm font-black text-rosewood">
-        <Icon size={15} aria-hidden="true" />
-        {title}
-      </p>
-      <p className="mt-1 text-sm leading-6 text-muted">{text}</p>
     </div>
   );
 }

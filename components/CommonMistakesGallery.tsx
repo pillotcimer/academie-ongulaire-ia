@@ -34,7 +34,7 @@ export function CommonMistakesGallery({ mistakes }: CommonMistakesGalleryProps) 
               <div className="mt-3 rounded-lg bg-petal p-3">
                 <p className="flex items-center gap-2 text-sm font-bold text-ink">
                   <RotateCcw size={15} aria-hidden="true" />
-                  Comment corriger
+                  Astuce pro
                 </p>
                 <p className="mt-1 text-sm leading-6 text-muted">{mistake.correction}</p>
               </div>

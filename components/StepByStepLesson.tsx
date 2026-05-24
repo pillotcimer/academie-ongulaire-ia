@@ -45,8 +45,9 @@ function getShortExplanation(text: string) {
     .split(". ")
     .map((sentence) => sentence.trim())
     .filter(Boolean);
+  const shortText = sentences.slice(0, 2).join(". ");
 
-  return sentences.slice(0, 2).join(". ") + (sentences.length > 0 && !sentences.slice(0, 2).join(". ").endsWith(".") ? "." : "");
+  return shortText + (shortText && !shortText.endsWith(".") ? "." : "");
 }
 
 function getManualCard(category: TrainingCategory, lesson: CourseLesson): VisualManualCard {
@@ -57,8 +58,7 @@ function getManualCard(category: TrainingCategory, lesson: CourseLesson): Visual
       imageUrl: "/images/lessons/good-bad.svg",
       correct: lesson.correctExample,
       avoid: lesson.commonError,
-      why: lesson.expectedResult,
-      fix: "Reviens à la checklist, corrige un point à la fois, puis reprends une photo nette."
+      proTip: "Reviens à la checklist, corrige un point à la fois, puis reprends une photo nette."
     }
   );
 }
@@ -79,16 +79,16 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
         content: <VideoLessonBlock title={lesson.videoTitle} duration={lesson.videoDuration} videoUrl={lesson.videoUrl} media={media} />
       },
       {
-        title: "Schéma / visuel",
-        shortTitle: "Visuel",
-        icon: ImageIcon,
-        content: <VisualStep card={manualCard} guidance={visuals?.guidance} />
-      },
-      {
         title: "Explication courte",
         shortTitle: "Cours",
         icon: FileText,
         content: <ExplanationStep lesson={lesson} />
+      },
+      {
+        title: "Schéma / image",
+        shortTitle: "Visuel",
+        icon: ImageIcon,
+        content: <VisualStep card={manualCard} guidance={visuals?.guidance} />
       },
       {
         title: "Checklist",
@@ -103,8 +103,8 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
         content: <PracticeStep lesson={lesson} />
       },
       {
-        title: "Photo au coach IA",
-        shortTitle: "Coach IA",
+        title: "Analyse IA",
+        shortTitle: "IA",
         icon: Camera,
         content: <LessonCoachBlock lessonId={lesson.id} exercise={lesson.coachExercise} />
       },
@@ -136,22 +136,21 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
   return (
     <div>
       <section className="border-b border-rose-100 bg-white">
-        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-4 py-5 sm:px-6 lg:px-8">
           <Link href={`/formation/${category.slug}`} className="focus-ring inline-flex items-center gap-2 rounded-full text-sm font-bold text-rosewood">
             <ArrowLeft size={16} aria-hidden="true" />
-            Retour à la catégorie
+            Retour au module
           </Link>
 
-          <div className="mt-5">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-rosewood">{category.title}</p>
-            <h1 className="mt-2 text-3xl font-black leading-tight text-ink sm:text-4xl">{lesson.title}</h1>
-            <p className="mt-3 max-w-3xl text-base leading-7 text-muted">{lesson.objective}</p>
+          <div className="mt-4">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-rosewood">{category.title}</p>
+            <h1 className="mt-2 text-2xl font-black leading-tight text-ink sm:text-4xl">{lesson.title}</h1>
           </div>
 
-          <div className="mt-5 rounded-lg border border-rose-100 bg-petal p-3">
+          <div className="mt-4 rounded-lg border border-rose-100 bg-petal p-3">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-black text-ink">
-                Étape {activeStep + 1} sur {steps.length} : {currentStep.title}
+                Étape {activeStep + 1}/{steps.length} : {currentStep.title}
               </p>
               <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-rosewood">{progress}%</span>
             </div>
@@ -172,7 +171,7 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
                   href={`${lessonHref}?etape=${index + 1}`}
                   aria-current={active ? "step" : undefined}
                   className={[
-                    "focus-ring flex min-h-16 flex-col items-center justify-center gap-1 rounded-lg border px-2 py-2 text-center text-[11px] font-black transition",
+                    "focus-ring flex min-h-14 flex-col items-center justify-center gap-1 rounded-lg border px-2 py-2 text-center text-[11px] font-black transition",
                     active
                       ? "border-rosewood bg-ink text-white"
                       : done
@@ -180,7 +179,7 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
                         : "border-rose-100 bg-white text-muted hover:border-rosewood/40"
                   ].join(" ")}
                 >
-                  <Icon size={17} aria-hidden={true} />
+                  <Icon size={16} aria-hidden={true} />
                   <span className="leading-tight">{step.shortTitle}</span>
                 </Link>
               );
@@ -189,33 +188,47 @@ export function StepByStepLesson({ category, lesson, activeStepIndex, nextLesson
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-5xl px-4 py-5 pb-32 sm:px-6 lg:px-8">
         <div className="rounded-lg border border-rose-100 bg-white p-4 shadow-soft sm:p-5">{currentStep.content}</div>
 
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Link
-            href={previousStepHref}
-            aria-disabled={activeStep === 0}
-            className={[
-              "focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition",
-              activeStep === 0 ? "pointer-events-none bg-petal text-rosewood opacity-45" : "bg-petal text-rosewood hover:bg-blush"
-            ].join(" ")}
-          >
-            <ArrowLeft size={17} aria-hidden="true" />
-            Retour
-          </Link>
-
-          {nextStepHref ? (
+        <div className="fixed inset-x-0 bottom-16 z-30 mx-auto max-w-5xl px-4 pb-3 sm:px-6 md:bottom-4">
+          <div className="flex flex-col gap-3 rounded-lg border border-rose-100 bg-white/95 p-3 shadow-soft backdrop-blur sm:flex-row sm:items-center sm:justify-between">
             <Link
-              href={nextStepHref}
-              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-tight transition hover:bg-rosewood"
+              href={previousStepHref}
+              aria-disabled={activeStep === 0}
+              className={[
+                "focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition",
+                activeStep === 0 ? "pointer-events-none bg-petal text-rosewood opacity-45" : "bg-petal text-rosewood hover:bg-blush"
+              ].join(" ")}
             >
-              Valider cette étape
-              <ArrowRight size={17} aria-hidden="true" />
+              <ArrowLeft size={17} aria-hidden="true" />
+              Retour
             </Link>
-          ) : null}
+
+            {nextStepHref ? (
+              <Link
+                href={nextStepHref}
+                className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-tight transition hover:bg-rosewood"
+              >
+                Suivant
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            ) : null}
+          </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+function ExplanationStep({ lesson }: { lesson: CourseLesson }) {
+  return (
+    <div className="grid gap-4 lg:grid-cols-[1fr_18rem]">
+      <div>
+        <h2 className="text-xl font-black text-ink">À retenir</h2>
+        <p className="mt-3 text-base leading-7 text-muted">{getShortExplanation(lesson.explanation)}</p>
+      </div>
+      <MiniInfoCard title="Objectif" text={lesson.objective} tone="action" />
     </div>
   );
 }
@@ -231,12 +244,11 @@ function VisualStep({ card, guidance }: { card: VisualManualCard; guidance?: { w
           </div>
           <div className="p-4">
             <h2 className="text-xl font-black text-ink">{card.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-muted">Regarde d’abord le repère visuel, puis vérifie seulement les points ci-dessous.</p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <p className="mt-2 text-sm leading-6 text-muted">Regarde le repère, puis vérifie ces trois points.</p>
+            <div className="mt-4 grid gap-3">
               <MiniInfoCard title="Correct" text={card.correct} tone="neutral" />
               <MiniInfoCard title="À éviter" text={card.avoid} tone="alert" />
-              <MiniInfoCard title="Pourquoi" text={card.why} tone="neutral" />
-              <MiniInfoCard title="Comment corriger" text={card.fix} tone="action" />
+              <MiniInfoCard title="Astuce pro" text={card.proTip} tone="action" />
             </div>
           </div>
         </div>
@@ -244,25 +256,10 @@ function VisualStep({ card, guidance }: { card: VisualManualCard; guidance?: { w
 
       {guidance ? (
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <CompactList title="Ce que tu dois voir" items={guidance.whatToSee} icon={Eye} />
-          <CompactList title="Ce que tu dois éviter" items={guidance.whatToAvoid} icon={RotateCcw} />
+          <CompactList title="À voir" items={guidance.whatToSee} icon={Eye} />
+          <CompactList title="À éviter" items={guidance.whatToAvoid} icon={RotateCcw} />
         </div>
       ) : null}
-    </div>
-  );
-}
-
-function ExplanationStep({ lesson }: { lesson: CourseLesson }) {
-  return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_18rem]">
-      <div>
-        <h2 className="text-xl font-black text-ink">À comprendre avant de pratiquer</h2>
-        <p className="mt-3 text-base leading-7 text-muted">{getShortExplanation(lesson.explanation)}</p>
-      </div>
-      <div className="rounded-lg bg-petal p-4">
-        <p className="text-xs font-black uppercase tracking-[0.12em] text-rosewood">Résultat attendu</p>
-        <p className="mt-2 text-sm leading-6 text-muted">{lesson.expectedResult}</p>
-      </div>
     </div>
   );
 }
@@ -285,8 +282,9 @@ function PracticeStep({ lesson }: { lesson: CourseLesson }) {
       </div>
 
       <div className="space-y-3">
-        <MiniInfoCard title="Résultat attendu" text={lesson.practice.expectedResult} tone="neutral" />
+        <MiniInfoCard title="Correct" text={lesson.practice.expectedResult} tone="neutral" />
         <MiniInfoCard title="À éviter" text={lesson.practice.mistakesToAvoid.slice(0, 2).join(" ")} tone="alert" />
+        <MiniInfoCard title="Astuce pro" text="Fais une photo avant de continuer, même si tu ne l’envoies pas encore au coach IA." tone="action" />
       </div>
     </div>
   );
@@ -310,9 +308,9 @@ function ValidationStep({
       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-petal text-rosewood">
         <Sparkles size={24} aria-hidden="true" />
       </span>
-      <h2 className="mt-4 text-2xl font-black text-ink">Valide seulement quand c’est fait</h2>
+      <h2 className="mt-4 text-2xl font-black text-ink">Validation de la leçon</h2>
       <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-muted">
-        Tu dois avoir regardé la vidéo, vérifié le visuel, coché la checklist, fait l’exercice et envoyé une photo si tu veux une correction.
+        Valide quand tu as regardé, pratiqué, contrôlé le résultat et préparé une photo claire si nécessaire.
       </p>
 
       <div className="mx-auto mt-5 max-w-xl rounded-lg bg-petal p-4 text-left">
@@ -327,7 +325,7 @@ function ValidationStep({
           className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white shadow-tight transition hover:bg-rosewood"
         >
           <CheckCircle2 size={18} aria-hidden="true" />
-          {completed ? "Étape validée" : "Valider cette étape"}
+          {completed ? "Leçon validée" : "Valider la leçon"}
         </button>
 
         {nextLessonHref ? (
@@ -335,7 +333,7 @@ function ValidationStep({
             href={nextLessonHref}
             className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-petal px-5 py-3 text-sm font-bold text-rosewood transition hover:bg-blush"
           >
-            Passer à la leçon suivante : {nextLessonTitle}
+            Leçon suivante : {nextLessonTitle}
             <ArrowRight size={17} aria-hidden="true" />
           </Link>
         ) : (
@@ -343,7 +341,7 @@ function ValidationStep({
             href="/formation"
             className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-petal px-5 py-3 text-sm font-bold text-rosewood transition hover:bg-blush"
           >
-            Revenir aux catégories
+            Revenir aux modules
             <ArrowRight size={17} aria-hidden="true" />
           </Link>
         )}
@@ -352,7 +350,15 @@ function ValidationStep({
   );
 }
 
-function CompactList({ title, items, icon: Icon }: { title: string; items: string[]; icon: React.ComponentType<{ size?: number; "aria-hidden"?: boolean }> }) {
+function CompactList({
+  title,
+  items,
+  icon: Icon
+}: {
+  title: string;
+  items: string[];
+  icon: React.ComponentType<{ size?: number; "aria-hidden"?: boolean }>;
+}) {
   return (
     <div className="rounded-lg border border-rose-100 bg-white p-4">
       <p className="flex items-center gap-2 text-sm font-black text-ink">
@@ -360,7 +366,7 @@ function CompactList({ title, items, icon: Icon }: { title: string; items: strin
         {title}
       </p>
       <ul className="mt-3 space-y-2">
-        {items.slice(0, 4).map((item) => (
+        {items.slice(0, 3).map((item) => (
           <li key={item} className="flex items-start gap-2 text-sm leading-6 text-muted">
             <CheckCircle2 className="mt-1 shrink-0 text-rosewood" size={14} aria-hidden="true" />
             <span>{item}</span>

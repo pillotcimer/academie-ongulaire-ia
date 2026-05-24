@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, BookOpen, CheckCircle2, Eye, RotateCcw } from "lucide-react";
+import { ArrowLeft, BookOpen, CheckCircle2, Lightbulb, XCircle } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { trainingCategories } from "@/data/trainingCategories";
 
@@ -10,13 +10,13 @@ export default function VisualManualPage() {
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
           <Link href="/formation" className="focus-ring inline-flex items-center gap-2 rounded-full text-sm font-bold text-rosewood">
             <ArrowLeft size={16} aria-hidden="true" />
-            Retour à la formation
+            Retour
           </Link>
           <div className="mt-6">
             <SectionHeading
               eyebrow="Manuel visuel"
-              title="Un guide simple pour savoir quoi regarder"
-              text="Chaque fiche résume le bon repère, l’erreur à éviter, la raison et la correction. C’est fait pour être relu vite sur téléphone pendant l’entraînement."
+              title="Les repères à garder sous les yeux"
+              text="Des fiches courtes pour vérifier le geste sans relire une longue leçon."
             />
           </div>
         </div>
@@ -41,8 +41,7 @@ export default function VisualManualPage() {
                     <div className="mt-4 grid gap-3">
                       <ManualLine title="Correct" text={card.correct} icon="check" />
                       <ManualLine title="À éviter" text={card.avoid} icon="avoid" />
-                      <ManualLine title="Pourquoi" text={card.why} icon="eye" />
-                      <ManualLine title="Comment corriger" text={card.fix} icon="fix" />
+                      <ManualLine title="Astuce pro" text={card.proTip} icon="tip" />
                     </div>
                   </div>
                 </div>
@@ -55,8 +54,8 @@ export default function VisualManualPage() {
   );
 }
 
-function ManualLine({ title, text, icon }: { title: string; text: string; icon: "check" | "avoid" | "eye" | "fix" }) {
-  const Icon = icon === "avoid" ? RotateCcw : icon === "eye" ? Eye : CheckCircle2;
+function ManualLine({ title, text, icon }: { title: string; text: string; icon: "check" | "avoid" | "tip" }) {
+  const Icon = icon === "avoid" ? XCircle : icon === "tip" ? Lightbulb : CheckCircle2;
 
   return (
     <div className="rounded-lg bg-petal p-3">
