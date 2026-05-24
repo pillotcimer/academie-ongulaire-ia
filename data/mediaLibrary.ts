@@ -19,7 +19,7 @@ export const lessonMediaLibrary: Record<string, LessonMedia> = {
     videoTitle: "Poste de travail et outils de manucure",
     videoDescription:
       "Plan de travail de prothesie ongulaire pour illustrer le materiel minimum et l'organisation de depart.",
-    videoUrl: "https://www.pexels.com/video/nail-technician-working-7424023/",
+    videoUrl:"/videos/materiel-base.mp4",
     videoSource: "Pexels",
     videoLicense: "Pexels License - free to use, attribution not required",
     source: "Pexels",
